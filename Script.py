@@ -287,7 +287,7 @@ ShemarooMe, EpicOn Etc. all OTT Movies and Webseries available
 
 ⚡️Grab It Fast ASAP😘 [💯Trusted]
 •─────•─────────•─────•
-💰ᴜᴘɪ ɪᴅ ➢ md-muzaffar-imam@axl [ᴛᴀᴘ ᴛᴏ ᴄᴏᴘʏ]
+💰ᴜᴘɪ ɪᴅ ➢ <code>md-muzaffar-imam@axl</code> [ᴛᴀᴘ ᴛᴏ ᴄᴏᴘʏ]
 
 🏷️ <a href='https://t.me/MRN_RIPPER'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
 
