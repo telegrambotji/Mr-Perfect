@@ -53,7 +53,7 @@ DATABASE_URI2 = environ.get('DATABASE_URI2', "")
 GRP_LNK = environ.get('GRP_LNK', 'https://t.me/MRN_Movies_Search_Group')
 CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/ALL_TV_SERIAL_BACKUP')
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/mimam_officialx')
-UPDATE_CHANNEL_LNK = environ.get('https://t.me/MRN_RIPPER', 'https://t.me/')
+UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/MRN_RIPPER')
 
 AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002232443823'))
 AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1002111679640'))
