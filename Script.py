@@ -268,19 +268,31 @@ Nᴀᴍᴇ - {}
 
     PREMIUM_TEXT = """<blockquote>🎖️ <b>ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs</b></blockquote>
 
+<b>✅New Plans For TV Shows Premium Channel😍
+
+[MRN Premium Tv, 🎞All Indian Hindi TV Shows ]
+•─────•─────────•─────•
 ⚡️>>> Rs. 100 -  1 Month
-⚡️>>> Rs. 200 - 2 Month
+⚡️>>> Rs. 200 -  2 Month
 ⚡️>>> Rs. 300 -  3 Month
 ⚡️>>> Rs. 400 -  4 Month
 ⚡️>>> Rs. 499 -  5 Month
-
 •─────•─────────•─────•
-💵 ᴜᴘɪ ɪᴅ - ⚠️ <b><u>ᴛʜɪꜱ ꜱᴇʀᴠɪᴄᴇ ɪꜱ ᴛᴇᴍᴘᴏʀᴀʀʏ ᴄʟᴏꜱᴇᴅ.</u></b>
+🚨These Prices Are Now Permanent Plans.
+
+✅1-Day Demo/Trial Also Available Here.
+
+OTT: Hotstar, ZEE5, JioCinema, SONYLIV, DangalPlay, 
+ShemarooMe, EpicOn Etc. all OTT Movies and Webseries available
+
+⚡️Grab It Fast ASAP😘 [💯Trusted]
+•─────•─────────•─────•
+💰ᴜᴘɪ ɪᴅ ➢ md-muzaffar-imam@axl [ᴛᴀᴘ ᴛᴏ ᴄᴏᴘʏ]
 
 🏷️ <a href='https://t.me/MRN_RIPPER'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
 
 ‼️ ᴍᴜꜱᴛ ꜱᴇɴᴅ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ᴀꜰᴛᴇʀ ᴘᴀʏᴍᴇɴᴛ.
-‼️ ᴀꜰᴛᴇʀ ꜱᴇɴᴅɪɴɢ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ɢɪᴠᴇ ᴜꜱ ꜱᴏᴍᴇᴛɪᴍᴇꜱ ᴛᴏ ᴀᴅᴅ ʏᴏᴜ ɪɴ ᴘʀᴇᴍɪᴜᴍ ʟɪꜱᴛ."""
+‼️ ᴀꜰᴛᴇʀ ꜱᴇɴᴅɪɴɢ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ɢɪᴠᴇ ᴜꜱ ꜱᴏᴍᴇᴛɪᴍᴇꜱ ᴛᴏ ᴀᴅᴅ ʏᴏᴜ ɪɴ ᴘʀᴇᴍɪᴜᴍ ʟɪꜱᴛ.</b>"""
    
     
     BPREMIUM_TXT = """<blockquote>🎁 <b>ᴘʀᴇᴍɪᴜᴍ ꜰᴇᴀᴛᴜʀᴇꜱ</b> :</blockquote>
