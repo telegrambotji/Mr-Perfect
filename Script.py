@@ -6,7 +6,7 @@ class script(object):
 
     ABOUT_TXT = """<b>╭────[ ᴍʏ ᴅᴇᴛᴀɪʟs ]────⍟
 ├⍟ ᴍʏ ɴᴀᴍᴇ : <a href=https://t.me/{}>{}</a>
-├⍟ ᴏᴡɴᴇʀ : <a href={}>ᴏᴡɴᴇʀ</a> 
+├⍟ ᴏᴡɴᴇʀ : <a href={}>꧁𓊈𒆜𝖒𝖎𝖒𝖆𝖒_𝖔𝖋𝖋𝖎𝖈𝖎𝖆𝖑𒆜𓊉꧂</a> 
 ├⍟ ʟɪʙʀᴀʀʏ : <a href='https://docs.pyrogram.org/'>ᴘʏʀᴏɢʀᴀᴍ</a>
 ├⍟ ʟᴀɴɢᴜᴀɢᴇ : <a href='https://www.python.org/download/releases/3.0/'>ᴘʏᴛʜᴏɴ 𝟹</a> 
 ├⍟ ᴅᴀᴛᴀʙᴀꜱᴇ : <a href='https://www.mongodb.com/'>ᴍᴏɴɢᴏ ᴅʙ</a> 
@@ -82,11 +82,11 @@ class script(object):
 
 <code>/set_shortner_3 mdiskshortner.link e7beb3c8f756dfa15d0bec495abc65f58c0dfa95</code>
 
-<code>/set_tutorial https://t.me/DwldMS/19</code>
+<code>/set_tutorial https://t.me/MRN_RIPPER</code>
 
-<code>/set_tutorial_2 https://t.me/DwldMS/20</code>
+<code>/set_tutorial_2 https://t.me/MRN_RIPPER</code>
 
-<code>/set_tutorial_3 https://t.me/DwldMS/20</code>
+<code>/set_tutorial_3 https://t.me/MRN_RIPPER</code>
 
 <code>/set_time 300</code>
 
@@ -268,16 +268,16 @@ Nᴀᴍᴇ - {}
 
     PREMIUM_TEXT = """<blockquote>🎖️ <b>ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs</b></blockquote>
 
-◉ 07 ᴅᴀʏꜱ - 15 ₹
-◉ 15 ᴅᴀʏꜱ - 30 ₹
-◉ 01 ᴍᴏɴᴛʜꜱ - 60 ₹
-◉ 02 ᴍᴏɴᴛʜꜱ - 120 ₹
-◉ 03 ᴍᴏɴᴛʜꜱ - 220 ₹
+⚡️>>> Rs. 100 -  1 Month
+⚡️>>> Rs. 200 - 2 Month
+⚡️>>> Rs. 300 -  3 Month
+⚡️>>> Rs. 400 -  4 Month
+⚡️>>> Rs. 499 -  5 Month
 
 •─────•─────────•─────•
 💵 ᴜᴘɪ ɪᴅ - ⚠️ <b><u>ᴛʜɪꜱ ꜱᴇʀᴠɪᴄᴇ ɪꜱ ᴛᴇᴍᴘᴏʀᴀʀʏ ᴄʟᴏꜱᴇᴅ.</u></b>
 
-🏷️ <a href='https://t.me/+blcE2jS-iGtkMjNl'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
+🏷️ <a href='https://t.me/MRN_RIPPER'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
 
 ‼️ ᴍᴜꜱᴛ ꜱᴇɴᴅ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ᴀꜰᴛᴇʀ ᴘᴀʏᴍᴇɴᴛ.
 ‼️ ᴀꜰᴛᴇʀ ꜱᴇɴᴅɪɴɢ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ɢɪᴠᴇ ᴜꜱ ꜱᴏᴍᴇᴛɪᴍᴇꜱ ᴛᴏ ᴀᴅᴅ ʏᴏᴜ ɪɴ ᴘʀᴇᴍɪᴜᴍ ʟɪꜱᴛ."""
@@ -311,7 +311,7 @@ Nᴀᴍᴇ : {}
 
 Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
     
-    CAPTION = """<b><a href="https://t.me/SilentXBotz">{file_name}</a></b>\n\n<b>⚜️ Powered By : <a https://t.me/SilentXBotz>[SilentXBotz]</a></b>"""
+    CAPTION = """<b><a href="https://t.me/MRN_RIPPER">{file_name}</a></b>\n\n<b>⚜️ Powered By : <a https://t.me/MRN_RIPPER>[@MRN_RIPPER]</a></b>"""
 
     IMDB_TEMPLATE_TXT = """
 <b>🏷 Title</b>: <a href={url}>{title}</a>
