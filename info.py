@@ -1,23 +1,7 @@
-import re
-import os
-from os import environ, getenv
-from Script import script
-
-id_pattern = re.compile(r'^.\d+$')
-
-def is_enabled(value, default):
-    if value.lower() in ["true", "yes", "1", "enable", "y"]:
-        return True
-    elif value.lower() in ["false", "no", "0", "disable", "n"]:
-        return False
-    else:
-        return default
-
-
 SESSION = environ.get('SESSION', 'media_search')
-API_ID = int(environ.get('API_ID', ''))
-API_HASH = environ.get('API_HASH', '')
-BOT_TOKEN = environ.get('BOT_TOKEN', "")
+API_ID = int(environ.get('API_ID', '20517170')
+API_HASH = environ.get('API_HASH', 'f09e5c91dd864f01063ff63827832137')
+BOT_TOKEN = environ.get('BOT_TOKEN', "7219892842:AAFoA7Bggh9bP0Gu4rnfOP8qxbt12gNKYBs")
 
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', True))
@@ -40,7 +24,7 @@ REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_
 support_chat_id = environ.get('SUPPORT_CHAT_ID', '-100') #Support Chat Id
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
 
-DATABASE_URI = environ.get('DATABASE_URI', "") #MongoDB Url
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://vijayxbotz917:BHq1zCm83wVWhRUL@cluster0.lavhj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0") #MongoDB Url
 DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'SilentXBotz_files')
 
@@ -50,7 +34,7 @@ DATABASE_URI2 = environ.get('DATABASE_URI2', "")
 
 GRP_LNK = environ.get('GRP_LNK', 'https://t.me/')
 CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/')
-OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/')
+OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/iam_MSD_Bot')
 UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/')
 
 #Force Subscription Channel (Put Same Channel Id In Both Veriables)
