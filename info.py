@@ -22,7 +22,7 @@ BOT_TOKEN = environ.get('BOT_TOKEN', "")
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', True))
 
-PICS = (environ.get('PICS', 'https://graph.org/file/834f0c91205af665a56f1-fc80977927e5ea6c96.jpg https://graph.org/file/11f0d8cb3c7236d15f051-6611cb64e4d5f12730.jpg https://graph.org/file/9b28b1e95b8f4015b3845-36cd4180effbc8450b.jpg')).split() 
+PICS = (environ.get('PICS', 'https://graph.org/file/57811441ee96d70b9a790-c0d38b001d132eaf65.jpg https://graph.org/file/1ea486dcfd5bc493098d6-5582be65458bc99d58.jpg https://graph.org/file/0ee99435f2eca7276dccc-6c2d0ee006702edfd5.jpg https://graph.org/file/834f0c91205af665a56f1-fc80977927e5ea6c96.jpg https://graph.org/file/11f0d8cb3c7236d15f051-6611cb64e4d5f12730.jpg https://graph.org/file/9b28b1e95b8f4015b3845-36cd4180effbc8450b.jpg')).split() 
 NOR_IMG = environ.get("NOR_IMG", "https://graph.org/file/62efbcc4e7580b76530ba.jpg")
 MELCOW_VID = environ.get("MELCOW_VID", "https://graph.org/file/e215d12bfd4fa2155e90e.mp4")
 SPELL_IMG = environ.get("SPELL_IMG", "https://graph.org/file/13702ae26fb05df52667c.jpg")
