@@ -321,7 +321,8 @@ Nᴀᴍᴇ : {}
 
 Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
     
-    CAPTION = """<b><a href="https://t.me/MRN_RIPPER">{file_name}</a></b>\n\n<b>😘Join - Share - Like >>> <a https://t.me/MRN_RIPPER>[@MRN_RIPPER] 🔰Movies Search Group🔰➥ [@MRN_Movies_Search_Group]</a></b>"""
+    CAPTION = """<b><a href="https://t.me/MRN_RIPPER">{file_name}</a></b>\n\n<b>😘Join - Share - Like >>> <a https://t.me/MRN_RIPPER>[@MRN_RIPPER]
+    🔰Movies Search Group🔰➥ [@MRN_Movies_Search_Group]</a></b>"""
 
     IMDB_TEMPLATE_TXT = """
 <b>🏷 Title</b>: <a href={url}>{title}</a>
