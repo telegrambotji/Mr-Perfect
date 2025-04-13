@@ -55,8 +55,8 @@ CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/VIPSRM')
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/VIPSRM')
 UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/+M3hQciIbuBc3YTZl')
 
-AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002625147245 -1002663892706'))
-AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1002625147245 -1002663892706'))
+AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002625147245'))
+AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1002663892706'))
 
 IS_VERIFY = is_enabled('IS_VERIFY', False)
 LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '-1002476012374'))
