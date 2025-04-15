@@ -86,18 +86,19 @@ async def start(client, message):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
     if len(message.command) != 2:
-        buttons = [[
-                    InlineKeyboardButton('✯ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘ ✯', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+       <b>buttons = [[
+                    InlineKeyboardButton('✯ 𝙰𝙳𝙳 𝙼𝙴 𝚃𝙾 𝚈𝙾𝚄𝚁 𝙶𝚁𝙾𝚄𝙿 ✯', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                 ],[
-                    InlineKeyboardButton('💝 Mᴏᴠɪᴇ Sᴇᴀʀᴄʜ Gʀᴏᴜᴘ', url='https://t.me/MRN_Movies_Search_Group'),
-                    InlineKeyboardButton('• P𝚁𝙴𝙼𝙸𝚄𝙼 🎫•', callback_data="premium"),
+                    InlineKeyboardButton('💝 𝙼𝙾𝚅𝙸𝙴 𝚂𝙴𝙰𝚁𝙲𝙷 𝙶𝚁𝙾𝚄𝙿 🔍', url='https://t.me/MRN_Movies_Search_Group'),
+                    InlineKeyboardButton('• 𝙿𝚁𝙴𝙼𝙸𝚄𝙼 🎫•', callback_data="premium"),
                 ],[
-                    InlineKeyboardButton('• Hᴇʟᴘ ⚙️', callback_data='features'),
-                    InlineKeyboardButton('• Aʙᴏᴜᴛ 💌•', callback_data='bot')
+                    InlineKeyboardButton('• 𝙷𝙴𝙻𝙿 ⚙️', callback_data='features'),
+                    InlineKeyboardButton('• 𝙰𝙱𝙾𝚄𝚃 💌•', callback_data='bot')
                 ],[
-                    InlineKeyboardButton('• ᴇᴀʀɴ ᴍᴏɴᴇʏ ᴡɪᴛʜ ʙᴏᴛ 💸', callback_data="earn"), 
-                    InlineKeyboardButton('🌿 J𝙾𝙸𝙽 U𝙿𝙳𝙰𝚃𝙴 C𝙷𝙰𝙽𝙽𝙴𝙻 🌿', url='https://t.me/+STRuLEmZ7AgxZjA1')
-                ]]
+                    InlineKeyboardButton('• 𝙼ᴀʀɴ 𝙼ᴏɴᴇʏ 𝚆ɪᴛʜ 𝙱ᴏᴛ 💸', callback_data="earn"),
+                ],[
+                    InlineKeyboardButton('🌿 𝙹𝙾𝙸𝙽 𝚄𝙿𝙳𝙰𝚃𝙴 𝙲𝙷𝙰𝙽𝙽𝙴𝙻 🌿', url='https://t.me/+STRuLEmZ7AgxZjA1'),
+                ]]</b>
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_photo(
             photo=random.choice(PICS),
