@@ -86,7 +86,7 @@ async def start(client, message):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
     if len(message.command) != 2:
-       <b>buttons = [[
+       buttons = [[
                     InlineKeyboardButton('✯ 𝙰𝙳𝙳 𝙼𝙴 𝚃𝙾 𝚈𝙾𝚄𝚁 𝙶𝚁𝙾𝚄𝙿 ✯', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                 ],[
                     InlineKeyboardButton('💝 𝙼𝙾𝚅𝙸𝙴 𝚂𝙴𝙰𝚁𝙲𝙷 𝙶𝚁𝙾𝚄𝙿 🔍', url='https://t.me/MRN_Movies_Search_Group'),
@@ -97,8 +97,8 @@ async def start(client, message):
                 ],[
                     InlineKeyboardButton('• 𝙼ᴀʀɴ 𝙼ᴏɴᴇʏ 𝚆ɪᴛʜ 𝙱ᴏᴛ 💸', callback_data="earn"),
                 ],[
-                    InlineKeyboardButton('🌿 𝙹𝙾𝙸𝙽 𝚄𝙿𝙳𝙰𝚃𝙴 𝙲𝙷𝙰𝙽𝙽𝙴𝙻 🌿', url='https://t.me/+STRuLEmZ7AgxZjA1'),
-                ]]</b>
+                    InlineKeyboardButton('🌿 𝙹𝙾𝙸𝙽 𝚄𝙿𝙳𝙰𝚃𝙴 𝙲𝙷𝙰𝙽𝙽𝙴𝙻 🌿', url='https://t.me/+STRuLEmZ7AgxZjA1')
+                ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_photo(
             photo=random.choice(PICS),
