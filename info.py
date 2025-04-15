@@ -63,12 +63,12 @@ LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '-1002338765286'))
 LOG_API_CHANNEL = int(environ.get('LOG_API_CHANNEL', '-1002338765286'))
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://files.catbox.moe/8tqvho.jpg")
 
-TUTORIAL = environ.get("TUTORIAL", "https://t.me/MRN_Tutorial/1657")
+TUTORIAL = environ.get("TUTORIAL", "https://t.me/MRN_Tutorial/1666")
 TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/MRN_Tutorial/1805")
 TUTORIAL_3 = environ.get("TUTORIAL_3", "https://t.me/MRN_Tutorial/1671")
 
-SHORTENER_API = environ.get("SHORTENER_API", "8ae23047eaf0dfa5e96233c6094287835879ff31")
-SHORTENER_WEBSITE = environ.get("SHORTENER_WEBSITE", "modijiurl.com")
+SHORTENER_API = environ.get("SHORTENER_API", "931dc3d2b822191032f43d523eae9de35fcc808c")
+SHORTENER_WEBSITE = environ.get("SHORTENER_WEBSITE", "shortner.in")
 
 SHORTENER_API2 = environ.get("SHORTENER_API2", "f2566f9573335044e60a2d14d537931e0a9ecd8d")
 SHORTENER_WEBSITE2 = environ.get("SHORTENER_WEBSITE2", "papajiurl.com")
