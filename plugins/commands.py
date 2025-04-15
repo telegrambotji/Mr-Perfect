@@ -95,7 +95,7 @@ async def start(client, message):
                     InlineKeyboardButton('• Hᴇʟᴘ ⚙️', callback_data='features'),
                     InlineKeyboardButton('• Aʙᴏᴜᴛ 💌•', callback_data='bot')
                 ],[
-                    InlineKeyboardButton('• ᴇᴀʀɴ ᴍᴏɴᴇʏ ᴡɪᴛʜ ʙᴏᴛ 💸', callback_data="earn")
+                    InlineKeyboardButton('• ᴇᴀʀɴ ᴍᴏɴᴇʏ ᴡɪᴛʜ ʙᴏᴛ 💸', callback_data="earn"), 
                     InlineKeyboardButton('🌿 J𝙾𝙸𝙽 U𝙿𝙳𝙰𝚃𝙴 C𝙷𝙰𝙽𝙽𝙴𝙻 🌿', url='https://t.me/+STRuLEmZ7AgxZjA1')
                 ]]
         reply_markup = InlineKeyboardMarkup(buttons)
