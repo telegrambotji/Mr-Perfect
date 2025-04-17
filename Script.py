@@ -76,13 +76,13 @@ class script(object):
 
 4:- ᴛʜᴇɴ sᴇᴛ ʏᴏᴜʀ sʜᴏʀᴛɴᴇʀ ᴅᴇᴛᴀɪʟs ʙʏ ᴛʜɪs ꜰᴏʀᴍᴀᴛ 👇
 
-<code>/set_shortner omegalinks.in a7ac9b3012c67d7491414cf272d82593c75f6cbb</code>
+<code>/set_shortner shortyfi.site a37d35def762b00679123e4bafab4be0416f43c6
 
-<code>/set_shortner_2 mdiskshortner.link e7beb3c8f756dfa15d0bec495abc65f58c0dfa95</code>
+<code>/set_shortner_2 shortyfi.site a37d35def762b00679123e4bafab4be0416f43c6
 
-<code>/set_shortner_3 mdiskshortner.link e7beb3c8f756dfa15d0bec495abc65f58c0dfa95</code>
+<code>/set_shortner_3 shortyfi.site a37d35def762b00679123e4bafab4be0416f43c6
 
-<code>/set_tutorial https://t.me/DwldMS/19</code>
+<code>/set_tutorial https://t.me/how_to_dwnload/37</code>
 
 <code>/set_tutorial_2 https://t.me/DwldMS/20</code>
 
@@ -277,7 +277,7 @@ Nᴀᴍᴇ - {}
 •─────•─────────•─────•
 💵 ᴜᴘɪ ɪᴅ - ⚠️ <b><u>ᴛʜɪꜱ ꜱᴇʀᴠɪᴄᴇ ɪꜱ ᴛᴇᴍᴘᴏʀᴀʀʏ ᴄʟᴏꜱᴇᴅ.</u></b>
 
-🏷️ <a href='https://t.me/+blcE2jS-iGtkMjNl'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
+🏷️ <a href='https://t.me/zsbhere'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
 
 ‼️ ᴍᴜꜱᴛ ꜱᴇɴᴅ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ᴀꜰᴛᴇʀ ᴘᴀʏᴍᴇɴᴛ.
 ‼️ ᴀꜰᴛᴇʀ ꜱᴇɴᴅɪɴɢ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ɢɪᴠᴇ ᴜꜱ ꜱᴏᴍᴇᴛɪᴍᴇꜱ ᴛᴏ ᴀᴅᴅ ʏᴏᴜ ɪɴ ᴘʀᴇᴍɪᴜᴍ ʟɪꜱᴛ."""
@@ -311,7 +311,7 @@ Nᴀᴍᴇ : {}
 
 Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
     
-    CAPTION = """<b><a href="https://t.me/SilentXBotz">{file_name}</a></b>\n\n<b>⚜️ Powered By : <a https://t.me/SilentXBotz>[SilentXBotz]</a></b>"""
+    CAPTION = """<b><a href="https://t.me/Movies_Corner20">{file_name}</a></b>\n\n<b>⚜️ Powered By : <a https://t.me/CornersOfficial>[CornersOfficial]</a></b>"""
 
     IMDB_TEMPLATE_TXT = """
 <b>🏷 Title</b>: <a href={url}>{title}</a>
