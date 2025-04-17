@@ -22,7 +22,7 @@ from Lucia.util.keepalive import ping_server
 from Lucia.Bot.clients import initialize_clients
 import pyrogram.utils
 from PIL import Image
-
+import threading, time, requests
 Image.MAX_IMAGE_PIXELS = 500_000_000
 
 logging.config.fileConfig('logging.conf')
@@ -41,6 +41,19 @@ ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
 pyrogram.utils.MIN_CHANNEL_ID = -1009147483647
+
+def ping_loop():
+    while True:
+        try:
+            r = requests.get(URL, timeout=10)
+            if r.status_code == 200:
+                print("✅ Ping Successful")
+            else:
+                print(f"⚠️ Ping Failed: {r.status_code}")
+        except Exception as e:
+            print(f"❌ Exception During Ping: {e}")
+        time.sleep(120)
+threading.Thread(target=ping_loop, daemon=True).start()
 
 async def SilentXBotz_start():
     print('Initalizing Your Bot!')
@@ -88,7 +101,6 @@ async def SilentXBotz_start():
     await app.setup()
     bind_address = "0.0.0.0"
     await web.TCPSite(app, bind_address, PORT).start()
-    SilentX.loop.create_task(keep_alive())
     await idle()
     
 if __name__ == '__main__':
