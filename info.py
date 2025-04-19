@@ -63,8 +63,8 @@ LOG_API_CHANNEL = int(environ.get('LOG_API_CHANNEL', '-1001588212650')) #If Anyo
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://telegra.ph/file/9ecc5d6e4df5b83424896.jpg")
 
 TUTORIAL = environ.get("TUTORIAL", "https://t.me/how_to_dwnload/41")
-TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/https://t.me/how_to_dwnload/37")
-TUTORIAL_3 = environ.get("TUTORIAL_3", "https://t.me/https://t.me/how_to_dwnload/22")
+TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/how_to_dwnload/37")
+TUTORIAL_3 = environ.get("TUTORIAL_3", "https://t.me/how_to_dwnload/22")
 
 # Verification (Must Fill All Veriables. Else You Got Error
 SHORTENER_API = environ.get("SHORTENER_API", "a37d35def762b00679123e4bafab4be0416f43c6")
