@@ -63,15 +63,15 @@ LOG_API_CHANNEL = int(environ.get('LOG_API_CHANNEL', '-1001588212650')) #If Anyo
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://telegra.ph/file/9ecc5d6e4df5b83424896.jpg")
 
 TUTORIAL = environ.get("TUTORIAL", "https://t.me/how_to_dwnload/42")
-TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/how_to_dwnload/37")
+TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/how_to_dwnload/42")
 TUTORIAL_3 = environ.get("TUTORIAL_3", "https://t.me/how_to_dwnload/22")
 
 # Verification (Must Fill All Veriables. Else You Got Error
 SHORTENER_API = environ.get("SHORTENER_API", "a37d35def762b00679123e4bafab4be0416f43c6")
 SHORTENER_WEBSITE = environ.get("SHORTENER_WEBSITE", "shortyfi.site")
 
-SHORTENER_API2 = environ.get("SHORTENER_API2", "46ac5441b1b2e3c7d770715b42bf8c8160c7c947")
-SHORTENER_WEBSITE2 = environ.get("SHORTENER_WEBSITE2", "adcash.in")
+SHORTENER_API2 = environ.get("SHORTENER_API2", "3a43c30423a519d4696d7b4a11dd600e707fa452")
+SHORTENER_WEBSITE2 = environ.get("SHORTENER_WEBSITE2", "shortyfi.site")
 
 SHORTENER_API3 = environ.get("SHORTENER_API3", "826eb92e893f6fdb42920983bba04c409bdc0b5d")
 SHORTENER_WEBSITE3 = environ.get("SHORTENER_WEBSITE3", "tnshort.net")
