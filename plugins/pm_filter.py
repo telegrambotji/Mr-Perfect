@@ -591,7 +591,7 @@ async def season_cb_handler(client: Client, query: CallbackQuery):
             0,
             [
                 InlineKeyboardButton(
-                    text="⇊ ꜱᴇʟᴇᴄᴛ ʟᴀɴɢᴜᴀɢᴇ ⇊", callback_data="ident"
+                    text="⇊ ꜱᴇʟᴇᴄᴛ Sᴇᴀsᴏɴ ⇊", callback_data="ident"
                 )
             ],
         )
