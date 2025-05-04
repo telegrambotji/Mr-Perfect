@@ -16,9 +16,7 @@ logger.setLevel(logging.INFO)
 
 processed_movies = set()
 
-MONGODB_SIZE = 512
-MONGODB_MINIMUM_REMAINING = 80 
-MONGODB_SIZE_LIMIT = MONGODB_SIZE - MONGODB_MINIMUM_REMAINING 
+MONGODB_SIZE_LIMIT = (512 * 1024 * 1024) - (80 * 1024 * 1024) 
 
 client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
@@ -58,38 +56,29 @@ class Media2(Document):
 async def check_db_size(db):
     try:
         stats = await db.command("dbstats")
-        db_size = stats["dataSize"]
-        db_size_mb = db_size / (1024 * 1024)
-        print(f"📊 DB Size: {db_size_mb:.2f} MB")
-        return db_size_mb
+        return stats["dataSize"]
     except Exception as e:
-        print(f"Error Checking Database Size: {e}")
-        return 0 
-
+        logger.error(f"Database size check error: {e}")
+        return 0
          
 async def save_file(bot, media):
     try:
-        global saveMedia
         file_id, file_ref = unpack_new_file_id(media.file_id)
-        file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
+        file_name = re.sub(r"[^\w\s.-]", " ", str(media.file_name)).strip()       
         if await Media.count_documents({'file_id': file_id}, limit=1):
-            logger.warning(f'{file_name} is already saved in primary database!')
-            return False, 0 
+            print(f'{file_name} exists in primary DB')
+            return False, 0
+        target_db = Media
         if MULTIPLE_DB:
-            try:
-                primary_db_size = await check_db_size(db)
-                if primary_db_size >= MONGODB_SIZE_LIMIT:
-                    logger.warning("Primary Database Is Running Low On Space. Switching To Second Database.")
-                    saveMedia = Media2
-                else:
-                    saveMedia = Media
-            except Exception as e:
-                print(f"Error Checking Primary Db Size: {e}")
-                saveMedia = Media
-        else:
-            saveMedia = Media
+            primary_size = await check_db_size(db)
+            if primary_size >= MONGODB_SIZE_LIMIT:
+                print("Using secondary database")
+                target_db = Media2
+                if await Media2.count_documents({'file_id': file_id}, limit=1):
+                    print(f'{file_name} exists in secondary DB')
+                    return False, 0
         try:
-            file = saveMedia(
+            file = target_db(
                 file_id=file_id,
                 file_ref=file_ref,
                 file_name=file_name,
@@ -98,21 +87,99 @@ async def save_file(bot, media):
                 mime_type=media.mime_type,
                 caption=media.caption.html if media.caption else None,
             )
-        except ValidationError as e:
-            logger.exception(f'Error Occurred While Saving File In Database - {e}')
-            return False, 2
-        else:
-            try:
-                await file.commit()
-            except DuplicateKeyError:
-                logger.warning(f'{getattr(media, "file_name", "NO_FILE")} is already saved in database')   
-                return False, 0
-            else:             
-                logger.info(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
-                return True, 1
+            await file.commit()
+            print(f'Saved to {target_db.__name__}: {file_name}')
+            return True, 1
+        except DuplicateKeyError:
+            print(f'Duplicate file: {file_name}')
+            return False, 0
     except Exception as e:
-        print(f"Error In Save File - {e}")
+        print(f'Save error: {e}')
+        return False, 2
 
+async def batch_save_file(bot, media_list):
+    if not media_list:
+        return []
+    results = [(False, 2) for _ in media_list]
+    try:
+        documents = []
+        file_ids = []
+        for idx, (media, msg_id) in enumerate(media_list):
+            file_id, file_ref = unpack_new_file_id(media.file_id)
+            if file_id is None:
+                file_name = re.sub(r"[^\w\s.-]", " ", str(media.file_name or "NO_FILE")).strip()
+                print(f"Msg {msg_id}: Invalid file_id for {file_name}")
+                results[idx] = (False, 2)
+                continue
+            file_name = re.sub(r"[^\w\s.-]", " ", str(media.file_name or "NO_FILE")).strip()
+            if not file_name:
+                file_name = "UNKNOWN_FILE"
+            file_size = media.file_size if media.file_size is not None else 0
+            print(f"Msg {msg_id}: Processing file: {file_name}, file_id: {file_id}, file_size: {file_size}")
+            documents.append({
+                'file_id': file_id,
+                'file_ref': file_ref,
+                'file_name': file_name,
+                'file_size': file_size,
+                'file_type': media.file_type,
+                'mime_type': media.mime_type,
+                'caption': media.caption.html if media.caption else None,
+                'msg_id': msg_id
+            })
+            file_ids.append(file_id)
+        existing = set()
+        cursor = Media.collection.find({'_id': {'$in': file_ids}}, {'_id': 1})
+        async for doc in cursor:
+            existing.add(doc['_id'])
+            idx = file_ids.index(doc['_id'])
+            print(f"Msg {documents[idx]['msg_id']}: {documents[idx]['file_name']} exists in primary DB")
+            results[idx] = (False, 0)
+        target_db = Media
+        if MULTIPLE_DB:
+            try:
+                primary_size = await check_db_size(db)
+                if primary_size >= MONGODB_SIZE_LIMIT:
+                    print("Using secondary database")
+                    target_db = Media2
+                    cursor = Media2.collection.find({'_id': {'$in': file_ids}}, {'_id': 1})
+                    async for doc in cursor:
+                        if doc['_id'] not in existing:
+                            existing.add(doc['_id'])
+                            idx = file_ids.index(doc['_id'])
+                            logger.warning(f"Msg {documents[idx]['msg_id']}: {documents[idx]['file_name']} exists in secondary DB")
+                            results[idx] = (False, 0)
+            except Exception as e:
+                print(f"Error checking primary DB size: {e}")
+                target_db = Media
+
+        for idx, (doc, (saved, status)) in enumerate(zip(documents, results)):
+            if status == 2:
+                try:
+                    media_doc = target_db(
+                        file_id=doc['file_id'],
+                        file_ref=doc['file_ref'],
+                        file_name=doc['file_name'],
+                        file_size=doc['file_size'],
+                        file_type=doc['file_type'],
+                        mime_type=doc['mime_type'],
+                        caption=doc['caption']
+                    )
+                    await media_doc.commit()
+                    print(f"Msg {doc['msg_id']}: Saved to {target_db.__name__}: {doc['file_name']}")
+                    results[idx] = (True, 1)
+                except DuplicateKeyError:
+                    print(f"Msg {doc['msg_id']}: Duplicate file: {doc['file_name']}")
+                    results[idx] = (False, 0)
+                except Exception as e:
+                    print(f"Msg {doc['msg_id']}: Save error: {e}")
+                    results[idx] = (False, 2)
+        return results
+    except Exception as e:
+        for idx, (media, msg_id) in enumerate(media_list):
+            file_name = re.sub(r"[^\w\s.-]", " ", str(media.file_name or "NO_FILE")).strip()
+            print(f"Msg {msg_id}: Save error: {e}")
+            results[idx] = (False, 2)
+        return results
     
 async def get_search_results(chat_id, query, file_type=None, max_results=10, offset=0, filter=False):
     if chat_id is not None:
