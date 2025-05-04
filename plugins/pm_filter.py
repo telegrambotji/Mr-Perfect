@@ -962,7 +962,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 [
                     InlineKeyboardButton('ʀᴇꜱᴜʟᴛ ᴘᴀɢᴇ',
                                          callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}'),
-                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings.get('button')] else 'ᴛᴇxᴛ',
+                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings.get('button') else 'ᴛᴇxᴛ',
                                          callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}')
                 ],
                 [
