@@ -142,7 +142,7 @@ async def next_page(bot, query):
         temp.GETALL[key] = files
         temp.SHORT[query.from_user.id] = query.message.chat.id
         settings = await get_settings(query.message.chat.id)
-        if settings['button']:
+        if settings.get('button'):
             btn = [
                 [
                     InlineKeyboardButton(
@@ -240,7 +240,7 @@ async def next_page(bot, query):
                         InlineKeyboardButton("ɴᴇxᴛ ⋟", callback_data=f"next_{req}_{key}_{n_offset}")
                     ],
                 )
-        if not settings["button"]:
+        if not settings.get('button'):
             cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
             time_difference = timedelta(hours=cur_time.hour, minutes=cur_time.minute, seconds=(cur_time.second+(cur_time.microsecond/1000000))) - timedelta(hours=curr_time.hour, minutes=curr_time.minute, seconds=(curr_time.second+(curr_time.microsecond/1000000)))
             remaining_seconds = "{:.2f}".format(time_difference.total_seconds())
@@ -335,7 +335,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             return
         temp.GETALL[key] = files
         settings = await get_settings(message.chat.id)
-        if settings["button"]:
+        if settings.get('button'):
             btn = [
                 [
                     InlineKeyboardButton(
@@ -390,7 +390,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             btn.append(
                 [InlineKeyboardButton(text="↭ ɴᴏ ᴍᴏʀᴇ ᴘᴀɢᴇꜱ ᴀᴠᴀɪʟᴀʙʟᴇ ↭",callback_data="pages")]
             )               
-        if not settings["button"]:
+        if not settings.get('button'):
             cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
             time_difference = timedelta(hours=cur_time.hour, minutes=cur_time.minute, seconds=(cur_time.second+(cur_time.microsecond/1000000))) - timedelta(hours=curr_time.hour, minutes=curr_time.minute, seconds=(curr_time.second+(curr_time.microsecond/1000000)))
             remaining_seconds = "{:.2f}".format(time_difference.total_seconds())
@@ -486,7 +486,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
             return
         temp.GETALL[key] = files
         settings = await get_settings(message.chat.id)
-        if settings["button"]:
+        if settings.get('button'):
             btn = [
                 [
                     InlineKeyboardButton(
@@ -540,7 +540,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
                 [InlineKeyboardButton(text="↭ ɴᴏ ᴍᴏʀᴇ ᴘᴀɢᴇꜱ ᴀᴠᴀɪʟᴀʙʟᴇ ↭",callback_data="pages")]
             )    
 
-        if not settings["button"]:
+        if not settings.get('button'):
             cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
             time_difference = timedelta(hours=cur_time.hour, minutes=cur_time.minute, seconds=(cur_time.second+(cur_time.microsecond/1000000))) - timedelta(hours=curr_time.hour, minutes=curr_time.minute, seconds=(curr_time.second+(curr_time.microsecond/1000000)))
             remaining_seconds = "{:.2f}".format(time_difference.total_seconds())
@@ -636,7 +636,7 @@ async def filter_season_cb_handler(client: Client, query: CallbackQuery):
             return
         temp.GETALL[key] = files
         settings = await get_settings(message.chat.id)
-        if settings["button"]:
+        if settings.get('button'):
             btn = [
                 [
                     InlineKeyboardButton(
@@ -690,7 +690,7 @@ async def filter_season_cb_handler(client: Client, query: CallbackQuery):
                 [InlineKeyboardButton(text="↭ ɴᴏ ᴍᴏʀᴇ ᴘᴀɢᴇꜱ ᴀᴠᴀɪʟᴀʙʟᴇ ↭",callback_data="pages")]
             )    
 
-        if not settings["button"]:
+        if not settings.get('button'):
             cur_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
             time_difference = timedelta(hours=cur_time.hour, minutes=cur_time.minute, seconds=(cur_time.second+(cur_time.microsecond/1000000))) - timedelta(hours=curr_time.hour, minutes=curr_time.minute, seconds=(curr_time.second+(curr_time.microsecond/1000000)))
             remaining_seconds = "{:.2f}".format(time_difference.total_seconds())
@@ -875,9 +875,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             buttons = [
                 [
                     InlineKeyboardButton('ʀᴇꜱᴜʟᴛ ᴘᴀɢᴇ',
-                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings["button"] else 'ᴛᴇxᴛ',
-                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
+                                         callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}'),
+                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings.get('button') else 'ᴛᴇxᴛ',
+                                         callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('ꜰɪʟᴇ ꜱᴇɴᴅ ᴍᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
@@ -961,9 +961,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             buttons = [
                 [
                     InlineKeyboardButton('ʀᴇꜱᴜʟᴛ ᴘᴀɢᴇ',
-                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings["button"] else 'ᴛᴇxᴛ',
-                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
+                                         callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}'),
+                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings.get('button')] else 'ᴛᴇxᴛ',
+                                         callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('ꜰɪʟᴇ ꜱᴇɴᴅ ᴍᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
@@ -1540,9 +1540,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             buttons = [
                 [
                     InlineKeyboardButton('ʀᴇꜱᴜʟᴛ ᴘᴀɢᴇ',
-                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings["button"] else 'ᴛᴇxᴛ',
-                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}')
+                                         callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}'),
+                    InlineKeyboardButton('ʙᴜᴛᴛᴏɴ' if settings.get('button') else 'ᴛᴇxᴛ',
+                                         callback_data=f'setgs#button#{settings.get('button')}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('ꜰɪʟᴇ ꜱᴇɴᴅ ᴍᴏᴅᴇ', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
@@ -1647,7 +1647,7 @@ async def auto_filter(client, msg, spoll=False):
     FRESH[key] = search
     temp.GETALL[key] = files
     temp.SHORT[message.from_user.id] = message.chat.id
-    if settings["button"]:
+    if settings.get('button'):
         btn = [
             [
                 InlineKeyboardButton(
@@ -1738,11 +1738,11 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
         temp.IMDB_CAP[message.from_user.id] = cap
-        if not settings["button"]:
+        if not settings.get('button'):
             for file_num, file in enumerate(files, start=1):
                 cap += f"\n\n<b>{file_num}. <a href='https://telegram.me/{temp.U_NAME}?start=file_{message.chat.id}_{file.file_id}'>{get_size(file.file_size)} | {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file.file_name.split()))}</a></b>"
     else:
-        if settings["button"]:
+        if settings.get('button'):
             cap =f"<b>📂 ʜᴇʀᴇ ɪ ꜰᴏᴜɴᴅ ꜰᴏʀ ʏᴏᴜʀ sᴇᴀʀᴄʜ <code>{search}</code></b>\n\n"
         else:
             cap =f"<b>📂 ʜᴇʀᴇ ɪ ꜰᴏᴜɴᴅ ꜰᴏʀ ʏᴏᴜʀ sᴇᴀʀᴄʜ <code>{search}</code></b>\n\n"            
