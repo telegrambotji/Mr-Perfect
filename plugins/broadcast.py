@@ -32,7 +32,7 @@ async def broadcast(bot, message):
             elif sh == "Error":
                 failed += 1
         done += 1
-        if not done % 20:
+        if not done % 50:
             await sts.edit(f"Bʀᴏᴀᴅᴄᴀsᴛ Iɴ Pʀᴏɢʀᴇss:\n\nTᴏᴛᴀʟ Uꜱᴇʀꜱ {total_users}\nCᴏᴍᴩʟᴇᴛᴇᴅ: {done} / {total_users}\nSᴜᴄᴄᴇꜱꜱ: {success}\nBʟᴏᴄᴋᴇᴅ: {blocked}\nDᴇʟᴇᴛᴇᴅ: {deleted}")    
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
     await sts.delete()
@@ -60,7 +60,7 @@ async def remove_junkuser__db(bot, message):
             elif sh == "Error":
                 failed += 1
         done += 1
-        if not done % 20:
+        if not done % 50:
             await sts.edit(f"In Progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nBlocked: {blocked}\nDeleted: {deleted}")    
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
     await sts.delete()
@@ -97,7 +97,7 @@ async def broadcast_group(bot, message):
                 except Exception as e:
                     print(f"{e} > {group['id']}")  
         done += 1
-        if not done % 20:
+        if not done % 50:
             await sts.edit(f"Broadcast in progress:\n\nTotal Groups {total_groups}\nCompleted: {done} / {total_groups}\nSuccess: {success}\nDeleted: {deleted}")    
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
     await sts.delete()
@@ -136,7 +136,7 @@ async def junk_clear_group(bot, message):
                 except Exception as e:
                     print(f"{e} > {group['id']}")  
         done += 1
-        if not done % 20:
+        if not done % 50:
             await sts.edit(f"in progress:\n\nTotal Groups {total_groups}\nCompleted: {done} / {total_groups}\nDeleted: {deleted}")    
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
     await sts.delete()
