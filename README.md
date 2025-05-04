@@ -29,6 +29,41 @@
 - 📥 Top Trending & Refer Feature.
 - 👑 Premium Subscription Funtion.
 
+## Variables
+* `BOT_TOKEN`: Create A Bot Using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
+* `API_ID`: Get This Value From [telegram.org](https://my.telegram.org/apps)
+* `API_HASH`: Get This Value From [telegram.org](https://my.telegram.org/apps)
+* `ADMINS`: ID Of Admins. (Multiple admins can be used separated by space)
+* `DATABASE_URI`: Your First MongoDB URL. Get This Value From [MongoDB](https://www.mongodb.com).
+* `MULTIPLE_DB`: Set It True Or False. If You Set This True Then All Files Saved In Second MongoDB If First MongoDB 80MB Left.
+* `DATABASE_URI2`: Your Second MongoDB URL (Optional - Add This If You Set MULTIPLE_DB True.).
+* `LOG_CHANNEL` : A Channel To Log The Activities Of Bot. Add Channel Id And Make Sure Bot Is An Admin In The Channel.
+* `SUPPORT_GROUP`: Add Your Support Group Id In This Veriable.
+* `BIN_CHANNEL`: A Channel To The Stream And Download Feature, Add Channel Id And Make Bot Admin In Channel.
+* `FQDN`: Make A Veriable On Your Deploying Plartform AndAdd You Deployed Bot App Link
+* `AUTH_CHANNEL`: ID of force subscribe channels (Multiple channels can be used separated by space)
+* `CHANNELS`: Username or ID of your files channels (Multiple channels can be used separated by space)
+*  Before Deploying The Bot Fill All Veriables. Check [info.py](https://github.com/NBBotz/Auto_Filter_Bot/blob/SilentXBotz/info.py) For All Veriables.
+ 
+## Files Indexing Configuration
+**This Bot Supports Multiple Clients For Faster File Indexing. You Can Add Multiple Bot Tokens To Enhance Indexing Speed.**
+
+**Setup Multi-Client Support:**
+1. Open `info.py`
+2. Add Variables Like This:
+```python
+BOT_TOKEN2 = environ.get('BOT_TOKEN2', "")
+BOT_TOKEN3 = environ.get('BOT_TOKEN3', "")
+BOT_TOKEN4 = environ.get('BOT_TOKEN4', "")
+```
+3. Visit [@BotFather](https://telegram.dog/BotFather) On Telegram
+4. Create A New Bot
+5. Copy The Bot Token
+6. Paste The Tokens Into These Variables
+7. Add All Your Bots As Admins In Your Files Channel
+
+You Can Add More Bots By Creating Additional Variables (BOT_TOKEN5, BOT_TOKEN6, etc.) Following The Same Pattern.
+
 
 ## 🚀 Deployment Methods
 
@@ -89,8 +124,9 @@ python3 bot.py
 
 # 📌 Credits  
 
-- **Base Repository:** [Dreamcinezone](https://github.com/MrRaazz/Dreamcinezone.git)  
-- Thanks To **All The Developers** Whose Code Contributed To This Project!
+- **Base Repository:** [Dreamcinezone](https://github.com/MrRaazz/Dreamcinezone.git)
+- **Thank You To All [Contributors](https://github.com/NBBotz/Auto_Filter_Bot/graphs/contributors) For Your Valuable Contributions To This Repository!**
+
 
 # Bugs & Fixes  
 
