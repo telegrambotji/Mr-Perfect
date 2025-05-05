@@ -23,7 +23,6 @@ from Lucia.Bot.clients import initialize_clients
 import pyrogram.utils
 from PIL import Image
 import threading, time, requests
-import uvloop
 Image.MAX_IMAGE_PIXELS = 500_000_000
 
 logging.config.fileConfig('logging.conf')
@@ -42,8 +41,6 @@ ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
 pyrogram.utils.MIN_CHANNEL_ID = -1009147483647
-
-uvloop.install()
 
 def ping_loop():
     while True:
