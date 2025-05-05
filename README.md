@@ -44,26 +44,6 @@
 * `AUTH_CHANNEL`: ID of force subscribe channels (Multiple channels can be used separated by space)
 * `CHANNELS`: Username or ID of your files channels (Multiple channels can be used separated by space)
 *  Before Deploying The Bot Fill All Veriables. Check [info.py](https://github.com/NBBotz/Auto_Filter_Bot/blob/SilentXBotz/info.py) For All Veriables.
- 
-## Files Indexing Configuration
-**This Bot Supports Multiple Clients For Faster File Indexing. You Can Add Multiple Bot Tokens To Enhance Indexing Speed.**
-
-**Setup Multi-Client Support:**
-1. Open `info.py`
-2. Add Variables Like This:
-```python
-BOT_TOKEN2 = environ.get('BOT_TOKEN2', "")
-BOT_TOKEN3 = environ.get('BOT_TOKEN3', "")
-BOT_TOKEN4 = environ.get('BOT_TOKEN4', "")
-```
-3. Visit [@BotFather](https://telegram.dog/BotFather) On Telegram
-4. Create A New Bot
-5. Copy The Bot Token
-6. Paste The Tokens Into These Variables
-7. Add All Your Bots As Admins In Your Files Channel
-
-You Can Add More Bots By Creating Additional Variables (BOT_TOKEN5, BOT_TOKEN6, etc.) Following The Same Pattern.
-
 
 ## 🚀 Deployment Methods
 
