@@ -16,6 +16,7 @@ class Database:
         self.botcol = self.db.bot_settings
         self.misc = self.db.misc
         self.verify_id = self.db.verify_id 
+        self.codes = self.db.codes
 
     async def find_join_req(self, id):
         return bool(await self.req.find_one({'id': id})) 
