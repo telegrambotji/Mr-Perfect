@@ -188,18 +188,13 @@ async def start(client, message):
         else:
             id = settings.get('fsub_id', AUTH_CHANNEL)
             channel = int(id)
-            btn = []
-            if channel != AUTH_CHANNEL and not await is_subscribed(client, message.from_user.id, channel):
-                invite_link_custom = await client.create_chat_invite_link(channel)
-                btn.append([InlineKeyboardButton("⛔️ ᴊᴏɪɴ ɴᴏᴡ ⛔️", url=invite_link_custom.invite_link)])
-            
-            if not await is_req_subscribed(client, message):
-                invite_link_default = await client.create_chat_invite_link(int(AUTH_CHANNEL), creates_join_request=True)
-                btn.append([InlineKeyboardButton("⛔️ ᴊᴏɪɴ ɴᴏᴡ ⛔️", url=invite_link_default.invite_link)])
-            
-            if message.command[1] != "subscribe" and (await is_req_subscribed(client, message) is False or await is_subscribed(client, message.from_user.id, channel) is False):
-                btn.append([InlineKeyboardButton("♻️ ᴛʀʏ ᴀɢᴀɪɴ ♻️", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
-            if btn:
+            if settings.get('fsub_id', AUTH_CHANNEL) and not await is_subscribed(client, message.from_user.id, channel):
+                invite_link = await client.create_chat_invite_link(channel)
+                btn = [[
+                        InlineKeyboardButton("⛔️ ᴊᴏɪɴ ɴᴏᴡ ⛔️", url=invite_link.invite_link)
+                      ]]
+                if message.command[1] != "subscribe":
+                    btn.append([InlineKeyboardButton("♻️ ᴛʀʏ ᴀɢᴀɪɴ ♻️", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
                 await client.send_photo(
                     chat_id=message.from_user.id,
                     photo=random.choice(FSUB_IMG),
@@ -209,7 +204,7 @@ async def start(client, message):
                     reply_to_message_id=message.id
                 )
                 return
-    except Exception as n:
+    except Exception as e:
         await log_error(client, f"Got Error In Force Subscription Funtion.\n\n Error - {n}")
         print(f"Error In Fsub :- {n}")
 
