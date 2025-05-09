@@ -169,7 +169,7 @@ async def start(client, message):
                 try:
                     invite_link = await client.create_chat_invite_link(int(AUTH_REQ_CHANNEL), creates_join_request=True)
                 except ChatAdminRequired:
-                    logger.error("Make sure Bot is admin in Forcesub channel")
+                    print("Bot Ko AUTH_CHANNEL Per Admin Bana Bhai Pahile 🤧")
                     return
                 btn = [[
                     InlineKeyboardButton("⛔️ ᴊᴏɪɴ ɴᴏᴡ ⛔️", url=invite_link.invite_link)
@@ -205,8 +205,8 @@ async def start(client, message):
                 )
                 return
     except Exception as e:
-        await log_error(client, f"Got Error In Force Subscription Funtion.\n\n Error - {n}")
-        print(f"Error In Fsub :- {n}")
+        await log_error(client, f"Got Error In Force Subscription Funtion.\n\n Error - {e}")
+        print(f"Error In Fsub :- {e}")
 
     user_id = m.from_user.id
     if not await db.has_premium_access(user_id):
