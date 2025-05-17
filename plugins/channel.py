@@ -1,14 +1,24 @@
 import re
+import aiohttp
+import asyncio
 import hashlib
 import requests
 from info import *
 from utils import *
+from typing import Optional
 from pyrogram import Client, filters
 from database.ia_filterdb import save_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 
 CAPTION_LANGUAGES = ["Bhojpuri", "Hindi", "Bengali", "Tamil", "English", "Bangla", "Telugu", "Malayalam", "Kannada", "Marathi", "Punjabi", "Bengoli", "Gujrati", "Korean", "Gujarati", "Spanish", "French", "German", "Chinese", "Arabic", "Portuguese", "Russian", "Japanese", "Odia", "Assamese", "Urdu"]
+
+SILENTX_UPDATE_CAPTION = """𝖭𝖤𝖶 𝖥𝖨𝖫𝖤 𝖠𝖣𝖣𝖤𝖣 ✅
+
+{} #{}
+📺 𝖯𝗂𝗑𝖾𝗅 - {}
+🔈 𝖠𝗎𝖽𝗂𝗈 - {}
+"""
 
 notified_movies = set()
 user_reactions = {}
@@ -60,10 +70,7 @@ async def send_movie_update(bot, file_name, caption):
         unique_id = generate_unique_id(search_movie)
         reaction_counts[unique_id] = {"❤️": 0, "👍": 0, "👎": 0, "🔥": 0}
         user_reactions[unique_id] = {}
-        caption_template = "<b>#Added ✅\n\nName: {}\nQuality: {}\nAudio: {}</b>"
-        full_caption = caption_template.format(file_name, quality, language)
-        if kind:
-            full_caption += f"\n<b>#{kind}</b>"
+        full_caption = SILENTX_UPDATE_CAPTION.format(file_name, kind, quality, language)
         buttons = [[
             InlineKeyboardButton(f"❤️ {reaction_counts[unique_id]['❤️']}", callback_data=f"r_{unique_id}_{search_movie}_heart"),                
             InlineKeyboardButton(f"👍 {reaction_counts[unique_id]['👍']}", callback_data=f"r_{unique_id}_{search_movie}_like"),
@@ -128,24 +135,46 @@ async def get_imdb_details(name):
         print(f"IMDB fetch error: {e}")
         return {}
 
-async def fetch_movie_poster(title, year=None):
-    try:
-        params = {"api_key": TMDB_API, "query": title}
-        if year:
-            params["year"] = year
-        res = requests.get("https://api.themoviedb.org/3/search/movie", params=params, timeout=10)
-        data = res.json().get("results", [])
-        if not data:
+async def fetch_movie_poster(title: str, year: Optional[int] = None, prefer_hindi: bool = True) -> Optional[str]:
+    async with aiohttp.ClientSession() as session:
+        payload = {
+            "title": title.strip(),
+            "prefer_hindi": prefer_hindi
+        }
+        if year is not None:
+            payload["year"] = year
+        try:
+            async with session.post(
+                "https://silentxbotz.vercel.app/api/v1/poster",
+                json=payload,
+                timeout=aiohttp.ClientTimeout(total=5)
+            ) as res:
+                if res.status != 200:
+                    if res.status == 404:
+                        print(f"No backdrop found for title: {title}")
+                    elif res.status == 400:
+                        print(f"Invalid request: Title is required")
+                    elif res.status == 405:
+                        print(f"Method not allowed: Use POST")
+                    else:
+                        print(f"API error: HTTP {res.status}")
+                    return None
+                data = await res.json()
+                image_url = data.get("image_url")
+                if not image_url:
+                    print(f"No backdrop found in API response for title: {title}")
+                    return None
+                return image_url
+        except aiohttp.ClientError as e:
+            print(f"Network error: {e}")
             return None
-        movie_id = data[0].get("id")
-        if not movie_id:
+        except asyncio.TimeoutError:
+            print("Request timed out")
             return None
-        img_res = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={TMDB_API}", timeout=10)
-        backdrops = img_res.json().get("backdrops", [])
-        return f"https://image.tmdb.org/t/p/original{backdrops[0]['file_path']}" if backdrops else None
-    except Exception as e:
-        print(f"Poster fetch error: {e}")
-        return None
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return None
+
 
 def generate_unique_id(movie_name):
     return hashlib.md5(movie_name.encode('utf-8')).hexdigest()[:5]
