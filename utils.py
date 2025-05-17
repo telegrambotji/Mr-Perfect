@@ -245,6 +245,11 @@ def extract_tag(file_name: str) -> str:
         return f"{quality_match.group(1)} •"
     return ""
 
+ 
+def clean_filename(file_name):
+    file_name = re.sub(r'http\S+', '', re.sub(r'@\w+|#\w+', '', file_name).replace('_', ' ').replace('[', '').replace(']', '').replace('(', '').replace(')', '').replace('{', '').replace('}', '').replace('.', ' ').replace('@', '').replace(':', '').replace(';', '').replace("'", '').replace('-', '').replace('!', '')).strip()
+    return file_name
+
 def split_list(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]  
