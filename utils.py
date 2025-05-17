@@ -247,7 +247,8 @@ def extract_tag(file_name: str) -> str:
 
  
 def clean_filename(file_name):
-    file_name = re.sub(r'http\S+', '', re.sub(r'@\w+|#\w+', '', file_name).replace('_', ' ').replace('[', '').replace(']', '').replace('(', '').replace(')', '').replace('{', '').replace('}', '').replace('.', ' ').replace('@', '').replace(':', '').replace(';', '').replace("'", '').replace('-', '').replace('!', '')).strip()
+    file_name = re.sub(r'http\S+', '', re.sub(r'@\w+|#\w+', '', file_name))
+    file_name = re.sub(r"[(){}\[\]:;'\-!]", "", file_name)
     return file_name
 
 def split_list(l, n):
