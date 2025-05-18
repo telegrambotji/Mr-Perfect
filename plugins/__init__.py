@@ -1,4 +1,3 @@
-
 from aiohttp import web
 from .route import routes
 from asyncio import sleep 
@@ -34,18 +33,4 @@ async def check_expired_premium(client):
                 print(e)
             await sleep(0.5)
         await sleep(1)
-
-async def keep_alive():
-    """Keep Bot Alive By Sending Periodic Pings In Every 2 Minutes."""
-    async with aiohttp.ClientSession() as session:
-        while True:
-            await asyncio.sleep(120)
-            try:
-                async with session.get(URL) as resp:
-                    if resp.status != 200:
-                        logging.warning(f"⚠️ Ping Error! Status: {resp.status}")
-                    else:
-                        logging.info("✅ Ping Successful")
-            except Exception as e:
-                logging.error(f"❌ Ping Failed: {e}")   
 
