@@ -16,8 +16,9 @@ CAPTION_LANGUAGES = ["Bhojpuri", "Hindi", "Bengali", "Tamil", "English", "Bangla
 SILENTX_UPDATE_CAPTION = """𝖭𝖤𝖶 𝖥𝖨𝖫𝖤 𝖠𝖣𝖣𝖤𝖣 ✅
 
 {} #{}
-📺 𝖯𝗂𝗑𝖾𝗅 - {}
+📺 𝖥𝗈𝗋𝗆𝖺𝗍 - {}
 🔈 𝖠𝗎𝖽𝗂𝗈 - {}
+🖇️ <a href="{}">𝖨𝖬𝖣𝖡 𝖨𝗇𝖿𝗈</a>
 """
 
 notified_movies = set()
@@ -64,13 +65,14 @@ async def send_movie_update(bot, file_name, caption):
         notified_movies.add(file_name)
         imdb_data = await get_imdb_details(file_name)
         title = imdb_data.get("title", file_name)
-        kind = imdb_data.get("kind", "").strip().upper().replace(" ", "_") if imdb_data else None
+        imdb_link = imdb_data.get("url", "") if imdb_data else ""
+        kind = imdb_data.get("kind", "").strip().upper().replace(" ", "_") if imdb_data else ""
         poster = await fetch_movie_poster(title, year)        
         search_movie = file_name.replace(" ", "-")
         unique_id = generate_unique_id(search_movie)
         reaction_counts[unique_id] = {"❤️": 0, "👍": 0, "👎": 0, "🔥": 0}
         user_reactions[unique_id] = {}
-        full_caption = SILENTX_UPDATE_CAPTION.format(file_name, kind, quality, language)
+        full_caption = SILENTX_UPDATE_CAPTION.format(file_name, kind, quality, language, imdb_link)
         buttons = [[
             InlineKeyboardButton(f"❤️ {reaction_counts[unique_id]['❤️']}", callback_data=f"r_{unique_id}_{search_movie}_heart"),                
             InlineKeyboardButton(f"👍 {reaction_counts[unique_id]['👍']}", callback_data=f"r_{unique_id}_{search_movie}_like"),
@@ -129,7 +131,8 @@ async def get_imdb_details(name):
         return {
             "title": imdb.get("title", formatted_name),
             "kind": imdb.get("kind", "Movie"),
-            "year": imdb.get("year")
+            "year": imdb.get("year"),
+            "url" : imdb.get("url")
         }
     except Exception as e:
         print(f"IMDB fetch error: {e}")
@@ -151,28 +154,28 @@ async def fetch_movie_poster(title: str, year: Optional[int] = None, prefer_hind
             ) as res:
                 if res.status != 200:
                     if res.status == 404:
-                        print(f"No backdrop found for title: {title}")
+                        print(f"No Poster Found For Title: {title}")
                     elif res.status == 400:
-                        print(f"Invalid request: Title is required")
+                        print(f"Invalid Request: Title Is Required")
                     elif res.status == 405:
-                        print(f"Method not allowed: Use POST")
+                        print(f"Method Not Allowed: Use POST")
                     else:
-                        print(f"API error: HTTP {res.status}")
+                        print(f"API Error: HTTP {res.status}")
                     return None
                 data = await res.json()
                 image_url = data.get("image_url")
                 if not image_url:
-                    print(f"No backdrop found in API response for title: {title}")
+                    print(f"No Poster Found In API Response For Title: {title}")
                     return None
                 return image_url
         except aiohttp.ClientError as e:
-            print(f"Network error: {e}")
+            print(f"Network Error: {e}")
             return None
         except asyncio.TimeoutError:
-            print("Request timed out")
+            print("Request Timed Out")
             return None
         except Exception as e:
-            print(f"Unexpected error: {e}")
+            print(f"Unexpected Error: {e}")
             return None
 
 
@@ -182,7 +185,8 @@ def generate_unique_id(movie_name):
 async def get_qualities(text):
     qualities = ["ORG", "org", "hdcam", "HDCAM", "HQ", "hq", "HDRip", "hdrip", 
                  "camrip", "WEB-DL", "CAMRip", "hdtc", "predvd", "DVDscr", "dvdscr", 
-                 "dvdrip", "HDTC", "dvdscreen", "HDTS", "hdts"]
+                 "dvdrip", "HDTC", "dvdscreen", "HDTS", "hdts", "480p", "480p HEVC", 
+                 "720p", "720p HEVC", "1080p", "1080p HEVC", "2160p" "2K", "4K"]
     return ", ".join([q for q in qualities if q.lower() in text.lower()])
 
 
