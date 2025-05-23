@@ -138,45 +138,36 @@ async def get_imdb_details(name):
         print(f"IMDB fetch error: {e}")
         return {}
 
-async def fetch_movie_poster(title: str, year: Optional[int] = None, prefer_hindi: bool = True) -> Optional[str]:
-    async with aiohttp.ClientSession() as session:
-        payload = {
-            "title": title.strip(),
-            "prefer_hindi": prefer_hindi
-        }
-        if year is not None:
-            payload["year"] = year
-        try:
-            async with session.post(
-                "https://silentxbotz.vercel.app/api/v1/poster",
-                json=payload,
-                timeout=aiohttp.ClientTimeout(total=5)
+async def fetch_movie_poster(title: str, year: Optional[int] = None) -> Optional[str]:
+    base_url = "https://image.silentxbotz.tech/api/v1/poster"
+    params = {"title": title.strip().replace(" ", "+")} 
+    if year is not None:
+        params["year"] = year
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                base_url,
+                params=params,
+                timeout=aiohttp.ClientTimeout(total=20)
             ) as res:
-                if res.status != 200:
-                    if res.status == 404:
-                        print(f"No Poster Found For Title: {title}")
-                    elif res.status == 400:
-                        print(f"Invalid Request: Title Is Required")
-                    elif res.status == 405:
-                        print(f"Method Not Allowed: Use POST")
-                    else:
-                        print(f"API Error: HTTP {res.status}")
-                    return None
-                data = await res.json()
-                image_url = data.get("image_url")
-                if not image_url:
-                    print(f"No Poster Found In API Response For Title: {title}")
-                    return None
-                return image_url
-        except aiohttp.ClientError as e:
-            print(f"Network Error: {e}")
-            return None
-        except asyncio.TimeoutError:
-            print("Request Timed Out")
-            return None
-        except Exception as e:
-            print(f"Unexpected Error: {e}")
-            return None
+                if res.status == 200:
+                    return str(res.url)
+                elif res.status == 400:
+                    print(f"Invalid Request: {await res.text()}")
+                elif res.status == 404:
+                    print(f"No Poster Found For: {title}")
+                else:
+                    print(f"API Error: HTTP {res.status}")
+                return None
+    except aiohttp.ClientError as e:
+        print(f"Network Error: {e}")
+        return None
+    except asyncio.TimeoutError:
+        print("Request Timed Out")
+        return None
+    except Exception as e:
+        print(f"Unexpected Error: {e}")
+        return None
 
 
 def generate_unique_id(movie_name):
