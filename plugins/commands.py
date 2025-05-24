@@ -113,9 +113,8 @@ await message.reply_photo(
     reply_to_message_id=message.id
 )
 return
-        
-    if message.command[1].startswith("reff_"):
-        try:
+  if message.command[1].startswith("reff_"):
+      try:
             user_id = int(message.command[1].split("_")[1])
         except ValueError:
             await message.reply_text("Invalid refer!")
