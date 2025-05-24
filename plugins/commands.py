@@ -286,7 +286,7 @@ async def start(client, message):
 
             if STREAM_MODE:
                 btn = [[
-              InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
                         InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
@@ -295,7 +295,7 @@ async def start(client, message):
                 ]]
             else:
                 btn = [[
-                    InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
                         InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
@@ -395,7 +395,7 @@ async def start(client, message):
                 f_caption = f"{' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), files1.file_name.split()))}"
             if STREAM_MODE:
                 btn = [[
-              InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
                         InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
@@ -404,7 +404,7 @@ async def start(client, message):
                 ]]
             else:
                 btn = [[
-                    InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
                         InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
@@ -431,7 +431,7 @@ async def start(client, message):
         try:
             if STREAM_MODE:
                 btn = [[
-              InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
                         InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
@@ -440,7 +440,7 @@ async def start(client, message):
                 ]]
             else:
                 btn = [[
-                    InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
                         InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
@@ -496,7 +496,7 @@ async def start(client, message):
         f_caption = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), files.file_name.split()))
     if STREAM_MODE:
         btn = [[
-              InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
                         InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
@@ -505,12 +505,11 @@ async def start(client, message):
                 ]]
             else:
                 btn = [[
-                    InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
                         InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
-                        InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
-                ]]
-                
+                        InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')   
+        ]]
     msg = await client.send_cached_media(
         chat_id=message.from_user.id,
         file_id=file_id,
