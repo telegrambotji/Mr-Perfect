@@ -101,44 +101,31 @@ async def start(client, message):
                 InlineKeyboardButton('✇ Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ ✇', url=CHNL_LNK)
                 ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-reply_markup = InlineKeyboardMarkup(buttons)
-
-    m = await message.reply_sticker("CAACAgIAAxkBAAISdGZdq8CuixMcWDLSnuo0AczMCqMVAAKrAQACEBptIni-vpHMVGzHHgQ")
-    await asyncio.sleep(1.5)
-    await m.delete()
-
-    await message.reply_photo(
-        photo=random.choice(PICS),
-        caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
-        reply_markup=reply_markup,
-        parse_mode=enums.ParseMode.HTML,
-        reply_to_message_id=message.id
-    )
-    return
-
+        await message.reply_photo(
+            photo=random.choice(PICS),
+            caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
+            reply_markup=reply_markup,
+            parse_mode=enums.ParseMode.HTML,
+            reply_to_message_id=message.id
+        )
+        return
+        
     if message.command[1].startswith("reff_"):
         try:
             user_id = int(message.command[1].split("_")[1])
         except ValueError:
             await message.reply_text("Invalid refer!")
             return
-
         if user_id == message.from_user.id:
-            await message.reply_text(
-                "Hᴇʏ Dᴜᴅᴇ, Yᴏᴜ Cᴀɴ'ᴛ Rᴇғᴇʀ Yᴏᴜʀsᴇʟғ 🤣!\n\n"
-                "sʜᴀʀᴇ ʟɪɴᴋ ʏᴏᴜʀ ғʀɪᴇɴᴅ ᴀɴᴅ ɢᴇᴛ 10 ʀᴇғᴇʀʀᴀʟ ᴘᴏɪɴᴛ "
-                "ɪғ ʏᴏᴜ ᴀʀᴇ ᴄᴏʟʟᴇᴄᴛɪɴɢ 100 ʀᴇғᴇʀʀᴀʟ ᴘᴏɪɴᴛs ᴛʜᴇɴ ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ "
-                "1 ᴍᴏɴᴛʜ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ᴍᴇᴍʙᴇʀsʜɪᴘ."
-            )
+            await message.reply_text("Hᴇʏ Dᴜᴅᴇ, Yᴏᴜ Cᴀɴ'ᴛ Rᴇғᴇʀ Yᴏᴜʀsᴇʟғ 🤣!\n\nsʜᴀʀᴇ ʟɪɴᴋ ʏᴏᴜʀ ғʀɪᴇɴᴅ ᴀɴᴅ ɢᴇᴛ 10 ʀᴇғᴇʀʀᴀʟ ᴘᴏɪɴᴛ ɪғ ʏᴏᴜ ᴀʀᴇ ᴄᴏʟʟᴇᴄᴛɪɴɢ 100 ʀᴇғᴇʀʀᴀʟ ᴘᴏɪɴᴛs ᴛʜᴇɴ ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ 1 ᴍᴏɴᴛʜ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ᴍᴇᴍʙᴇʀsʜɪᴘ.")
             return
         if referdb.is_user_in_list(message.from_user.id):
             await message.reply_text("Yᴏᴜ ʜᴀᴠᴇ ʙᴇᴇɴ ᴀʟʀᴇᴀᴅʏ ɪɴᴠɪᴛᴇᴅ ❗")
             return
-
         try:
             uss = await client.get_users(user_id)
         except Exception:
-            return
+            return 	    
         referdb.add_user(message.from_user.id)
         fromuse = referdb.get_refer_points(user_id) + 10
         if fromuse == 100:
