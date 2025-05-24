@@ -138,9 +138,9 @@ else:
     ON_HEROKU = False
 HAS_SSL = bool(getenv('HAS_SSL', True))
 if HAS_SSL:
-    URL = "".format(FQDN)
+    URL = "https://ill-dyane-patrickbotz-6d6a6ba9.koyeb.app/".format(FQDN)
 else:
-    URL = "".format(FQDN)
+    URL = "https://ill-dyane-patrickbotz-6d6a6ba9.koyeb.app/".format(FQDN)
 
 
 REACTIONS = ["🤝", "😇", "🤗", "😍", "👍", "🎅", "😐", "🥰", "🤩", "😱", "🤣", "😘", "👏", "😛", "😈", "🎉", "⚡️", "🫡", "🤓", "😎", "🏆", "🔥", "🤭", "🌚", "🆒", "👻", "😁"]
