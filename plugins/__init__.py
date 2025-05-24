@@ -3,7 +3,7 @@ from .route import routes
 from asyncio import sleep 
 from datetime import datetime
 from database.users_chats_db import db
-from info import LOG_CHANNEL, URL
+from info import PREMIUM_LOGS, URL
 import aiohttp
 import asyncio
 import logging
@@ -28,7 +28,7 @@ async def check_expired_premium(client):
                     chat_id=user_id,
                     text=f"<b>ʜᴇʏ {user.mention},\n\nʏᴏᴜʀ ᴘʀᴇᴍɪᴜᴍ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ʜᴀꜱ ʙᴇᴇɴ ᴇxᴘɪʀᴇᴅ. ᴛʜᴀɴᴋꜱ ꜰᴏʀ ᴜꜱɪɴɢ ᴏᴜʀ ᴘʀᴇᴍɪᴜᴍ ꜱᴇʀᴠɪᴄᴇ. ɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ʙᴜᴛ ᴀɢᴀɪɴ ᴛʜᴇɴ ꜱᴇɴᴅ /plan</b>"
                 )
-                await client.send_message(LOG_CHANNEL, text=f"<b>#Premium_Expire\n\nUser name: {user.mention}\nUser id: <code>{user_id}</code>")
+                await client.send_message(PREMIUM_LOGS, text=f"<b>#Premium_Expire\n\nUser name: {user.mention}\nUser id: <code>{user_id}</code>")
             except Exception as e:
                 print(e)
             await sleep(0.5)
