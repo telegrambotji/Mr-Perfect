@@ -1,4 +1,8 @@
 import re
+import io
+import math
+import random
+import string
 import aiohttp
 import asyncio
 import hashlib
@@ -6,6 +10,7 @@ import requests
 from info import *
 from utils import *
 from typing import Optional
+from datetime import datetime
 from pyrogram import Client, filters
 from database.ia_filterdb import save_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
@@ -71,7 +76,7 @@ async def send_movie_update(bot, file_name, caption):
         search_movie = file_name.replace(" ", "-")
         unique_id = generate_unique_id(search_movie)
         reaction_counts[unique_id] = {"❤️": 0, "👍": 0, "👎": 0, "🔥": 0}
-        user_reactions[unique_id] = {}
+        user_reactions[unique_id] = {}        
         full_caption = SILENTX_UPDATE_CAPTION.format(file_name, kind, quality, language, imdb_link)
         buttons = [[
             InlineKeyboardButton(f"❤️ {reaction_counts[unique_id]['❤️']}", callback_data=f"r_{unique_id}_{search_movie}_heart"),                
@@ -82,7 +87,13 @@ async def send_movie_update(bot, file_name, caption):
             InlineKeyboardButton('Get File', url=f'https://telegram.me/{temp.U_NAME}?start=getfile-{search_movie}')
         ]]
         image_url = poster or "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
-        await bot.send_photo(chat_id=MOVIE_UPDATE_CHANNEL, photo=image_url, caption=full_caption, reply_markup=InlineKeyboardMarkup(buttons))    
+        if poster:
+            photo_file = io.BytesIO(poster)
+            photo_file.name = await generate_random_filename()
+            await bot.send_photo(chat_id=MOVIE_UPDATE_CHANNEL, photo=photo_file, caption=full_caption, reply_markup=InlineKeyboardMarkup(buttons))    
+        else:
+            image_url = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"   
+            await bot.send_photo(chat_id=MOVIE_UPDATE_CHANNEL, photo=image_url, caption=full_caption, reply_markup=InlineKeyboardMarkup(buttons))                
     except Exception as e:
         print(f"Error in send_movie_update: {e}")
 
@@ -140,34 +151,37 @@ async def get_imdb_details(name):
 
 async def fetch_movie_poster(title: str, year: Optional[int] = None) -> Optional[str]:
     base_url = "https://image.silentxbotz.tech/api/v1/poster"
-    params = {"title": title.strip().replace(" ", "+")} 
+    params = {"title": title.strip()}    
     if year is not None:
-        params["year"] = year
+        params["year"] = str(year)
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(
                 base_url,
                 params=params,
                 timeout=aiohttp.ClientTimeout(total=20)
-            ) as res:
-                if res.status == 200:
-                    return str(res.url)
-                elif res.status == 400:
-                    print(f"Invalid Request: {await res.text()}")
-                elif res.status == 404:
-                    print(f"No Poster Found For: {title}")
+            ) as response:
+                if response.status == 200:
+                    image_data = await response.read()
+                    return image_data                
+                response_text = await response.text()
+                if response.status == 400:
+                    raise ValueError(f"Invalid request: {response_text}")
+                elif response.status == 404:
+                    raise ValueError(f"No poster found for: {title}")
+                elif response.status == 500:
+                    raise ValueError(f"Server error: {response_text}")
                 else:
-                    print(f"API Error: HTTP {res.status}")
-                return None
+                    raise ValueError(f"API error: HTTP {response.status} - {response_text}")
     except aiohttp.ClientError as e:
-        print(f"Network Error: {e}")
-        return None
+        print(f"Network error occurred: {str(e)}")
     except asyncio.TimeoutError:
-        print("Request Timed Out")
-        return None
+        print("Request timed out after 20 seconds")
+    except ValueError as e:
+        print(str(e))
     except Exception as e:
-        print(f"Unexpected Error: {e}")
-        return None
+        print(f"Unexpected error: {str(e)}")   
+    return None
 
 
 def generate_unique_id(movie_name):
@@ -184,3 +198,12 @@ async def get_qualities(text):
 async def movie_name_format(file_name):
   clean_filename = re.sub(r'http\S+', '', re.sub(r'@\w+|#\w+', '', file_name).replace('_', ' ').replace('[', '').replace(']', '').replace('(', '').replace(')', '').replace('{', '').replace('}', '').replace('.', ' ').replace('@', '').replace(':', '').replace(';', '').replace("'", '').replace('-', '').replace('!', '')).strip()
   return clean_filename
+
+
+async def generate_random_filename(extension=".jpg"):
+    now = datetime.now()
+    timestamp = now.strftime("%Y%m%d%H%M%S")
+    sin_value = abs(math.sin(int(timestamp[-5:]))) 
+    random_part = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))   
+    filename = f"silentxbotz_{int(sin_value*10000)}_{random_part}{extension}"
+    return filename
