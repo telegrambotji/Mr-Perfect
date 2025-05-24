@@ -502,13 +502,13 @@ async def start(client, message):
                 InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
             ],[
                 InlineKeyboardButton('🚀 ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ / ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ 🖥️', callback_data=f'streamfile:{file_id}')  
-              ]]
-           else:
-                btn = [[
-                        InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
-                        InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
+        ]]
+    else:
+        btn = [[
+                InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
+                InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url=CHNL_LNK)
                     ],[
-                        InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
+                InlineKeyboardButton('🎁 Rᴇꜰᴇʀ & Gᴇᴛ Rᴇᴡᴀʀᴅꜱ', callback_data='reffff')
         ]]
     msg = await client.send_cached_media(
         chat_id=message.from_user.id,
