@@ -111,9 +111,9 @@ await message.reply_photo(
     reply_markup=reply_markup,
     parse_mode=enums.ParseMode.HTML,
     reply_to_message_id=message.id
+)
 
-        )
-        return
+return
         
     if message.command[1].startswith("reff_"):
         try:
