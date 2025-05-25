@@ -274,7 +274,7 @@ Nᴀᴍᴇ - {}
 ◉ 03 ᴍᴏɴᴛʜꜱ - 220 ₹
 
 •─────•─────────•─────•
-💵 ᴜᴘɪ ɪᴅ - ⚠️ <b><u>ᴛʜɪꜱ ꜱᴇʀᴠɪᴄᴇ ɪꜱ ᴛᴇᴍᴘᴏʀᴀʀʏ ᴄʟᴏꜱᴇᴅ.</u></b>
+💵 ᴜᴘɪ ɪᴅ - ⚠️ <b><u>arihansharma5467@okhdfcbank</u></b>
 
 🏷️ <a href='https://t.me/+blcE2jS-iGtkMjNl'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
 
@@ -390,4 +390,4 @@ Requested by : {message.from_user.mention}</b>"""
 
     PAGE_TXT = """ᴡʜʏ ᴀʀᴇ ʏᴏᴜ ꜱᴏ ᴄᴜʀɪᴏᴜꜱ ⁉️"""    
    
-    SOURCE_TXT = """<b>───[ sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ ]───</b>\nProject isn't Open Source. If you need help or have questions, please feel free to message us directly."""
+    SOURCE_TXT = """<b>───[ sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ ]───</b>\n\nProject isn't Open Source. If you need help or have questions, please feel free to message us directly."""
