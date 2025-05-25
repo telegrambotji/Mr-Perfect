@@ -96,7 +96,7 @@ async def start(client, message):
             ],[
                 InlineKeyboardButton('〄 Hᴇʟᴘ', callback_data='features'),
                 InlineKeyboardButton('⍟ Aʙᴏᴜᴛ', callback_data='bot'),
-                InlineKeyboardButton(' ⎊ Tʀᴇɴᴅɪɴɢㅤ', callback_data="topsearch")
+                InlineKeyboardButton('  ⎊ Tʀᴇɴᴅɪɴɢㅤ', callback_data="topsearch")
             ],[
                 InlineKeyboardButton('✇ Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ ✇', url=CHNL_LNK)
                 ]]
