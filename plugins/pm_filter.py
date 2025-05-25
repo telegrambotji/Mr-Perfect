@@ -1274,7 +1274,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ],[
                 InlineKeyboardButton('〄 Hᴇʟᴘ', callback_data='features'),
                 InlineKeyboardButton('⍟ Aʙᴏᴜᴛ', callback_data='bot'),
-                InlineKeyboardButton('⌬ Tᴏᴘ Sᴇᴀʀᴄʜɪɴɢ', callback_data="topsearch")
+                InlineKeyboardButton('⌬ Tʀᴇɴᴅɪɴɢ', callback_data="topsearch")
             ],[
                 InlineKeyboardButton('✇ Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ ✇', url=CHNL_LNK)
                 ]]
@@ -1486,8 +1486,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     
     elif query.data == "bot":
         buttons = [[
-            InlineKeyboardButton('‼️ ᴅɪꜱᴄʟᴀɪᴍᴇʀ ‼️', callback_data='disclaimer'),
-            InlineKeyboardButton ('• sᴏᴜʀᴄᴇ •', callback_data='source'),
+            InlineKeyboardButton('Dɪsᴄʟᴀɪᴍᴇʀ', callback_data='disclaimer'),
+            InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url=GRP_LNK),
         ],[
             InlineKeyboardButton('⇋ ʙᴀᴄᴋ ᴛᴏ ʜᴏᴍᴇ ⇋', callback_data='start')
         ]]
@@ -1500,7 +1500,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data == "source":
         buttons = [[
-            InlineKeyboardButton('ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ 📜', url='https://github.com/NBBotz/Auto_Filter_Bot.git'),
+            InlineKeyboardButton('ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ 📜', url='https://github.com/'),
             InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='bot')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
