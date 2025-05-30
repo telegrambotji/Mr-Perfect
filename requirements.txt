@@ -20,6 +20,9 @@ psutil
 numpy
 wheel
 ujson
+pyrogram
+tgcrypto
+yt-dlp
 wget
 aiofiles
 dnspython==2.3.0
@@ -28,5 +31,5 @@ ffmpeg-python==0.2.0
 jinja2
 fuzzywuzzy
 python-Levenshtein==0.21.0
-yt-dlp
+
 
