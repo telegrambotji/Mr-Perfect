@@ -1,37 +1,42 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from yt_dlp import YoutubeDL
 import os
-import yt_dlp
 
 @Client.on_message(filters.command("song") & (filters.private | filters.group))
-async def song_handler(client: Client, message: Message):
+async def song_video(client: Client, message: Message):
     if len(message.command) < 2:
-        await message.reply("❌ Usage: /song <song name>")
-        return
+        return await message.reply("❌ Please provide a song name!\n\nUsage: `/song humnava`")
 
     query = " ".join(message.command[1:])
-    sent = await message.reply(f"🔍 Searching for: **{query}**")
+    msg = await message.reply(f"🔍 Searching for `{query}`...")
 
     try:
         ydl_opts = {
-            'format': 'mp4',
-            'outtmpl': 'downloads/%(title)s.%(ext)s',
-            'quiet': True,
+            "format": "bestvideo[height<=720]+bestaudio/best[height<=720]",
+            "outtmpl": "%(title)s.%(ext)s",
+            "merge_output_format": "mp4",
+            "quiet": True
         }
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(f"ytsearch:{query}", download=True)['entries'][0]
-            file_path = ydl.prepare_filename(info)
+        with YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(f"ytsearch1:{query}", download=True)["entries"][0]
+            filename = ydl.prepare_filename(info)
+            if not filename.endswith(".mp4"):
+                filename = filename.rsplit(".", 1)[0] + ".mp4"
 
-        await sent.edit("📤 Uploading...")
+        await msg.edit("📤 Uploading video...")
 
-        await message.reply_video(
-            video=file_path,
-            caption=f"🎵 **{info['title']}**"
+        await client.send_video(
+            chat_id=message.chat.id,
+            video=filename,
+            caption=f"🎬 **{info.get('title')}**\n🔗 [Watch on YouTube]({info.get('webpage_url')})",
+            duration=int(info.get("duration", 0)),
+            supports_streaming=True,
         )
 
-        os.remove(file_path)
-        await sent.delete()
+        os.remove(filename)
+        await msg.delete()
 
     except Exception as e:
-        await sent.edit(f"❌ Error: {e}")
+        await msg.edit(f"❌ Error:\n`{str(e)}`")
