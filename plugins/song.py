@@ -1,43 +1,36 @@
-
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from yt_dlp import YoutubeDL
+import yt_dlp
 import os
 
-@Client.on_message(filters.command("song") & filters.private)
-async def download_song(client: Client, message: Message):
+@Client.on_message(filters.private & filters.command("song"))
+async def download_song(_, message: Message):
     if len(message.command) < 2:
-        return await message.reply("❌ गाने का नाम दो!\nउदाहरण: `/song humnava mere`")
-
-    search_query = " ".join(message.command[1:])
-    msg = await message.reply_text(f"🔍 `{search_query}` खोज रहा हूँ...")
+        return await message.reply("🔗 YouTube link do, jaise:\n`/song https://youtu.be/dQw4w9WgXcQ`")
+    
+    url = message.text.split(None, 1)[1]
+    msg = await message.reply("📥 Downloading...")
 
     try:
         ydl_opts = {
-            "format": "bestvideo[height<=720]+bestaudio/best",
-            "outtmpl": "%(title)s.%(ext)s",
-            "merge_output_format": "mp4",
-            "quiet": True,
+            'format': 'bestvideo[height<=720]+bestaudio/best[height<=720]',
+            'outtmpl': 'downloads/%(title)s.%(ext)s',
+            'merge_output_format': 'mp4',
+            'quiet': True,
         }
 
-        with YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(f"ytsearch1:{search_query}", download=True)["entries"][0]
-            filename = ydl.prepare_filename(info)
-            if not filename.endswith(".mp4"):
-                filename = filename.rsplit(".", 1)[0] + ".mp4"
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            file_path = ydl.prepare_filename(info).replace(".webm", ".mp4").replace(".mkv", ".mp4")
 
-        await msg.edit("📤 अपलोड कर रहा हूँ...")
-
-        await client.send_video(
-            chat_id=message.chat.id,
-            video=filename,
-            caption=f"🎬 {info.get('title')}\n🔗 [लिंक]({info.get('webpage_url')})",
-            duration=int(info.get("duration", 0)),
-            supports_streaming=True,
+        await msg.edit("📤 Uploading...")
+        await message.reply_video(
+            video=file_path,
+            caption=f"🎵 {info.get('title')}"
         )
-
-        os.remove(filename)
         await msg.delete()
 
+        os.remove(file_path)
+
     except Exception as e:
-        await msg.edit(f"❌ Error:\n`{e}`")
+        await msg.edit(f"❌ Error: `{str(e)}`")
