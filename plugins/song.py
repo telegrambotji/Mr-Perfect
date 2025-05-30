@@ -3,7 +3,7 @@ from pyrogram.types import Message
 from yt_dlp import YoutubeDL
 import os
 
-@Client.on_message(filters.command("song") & filters.private | filters.group)
+@Client.on_message(filters.command("song") & filters.private)
 async def song_handler(client: Client, message: Message):
     if len(message.command) < 2:
         return await message.reply("❌ गाने का नाम दो!\nउदाहरण: `/song humnava mere`")
@@ -25,7 +25,7 @@ async def song_handler(client: Client, message: Message):
             if not filename.endswith(".mp4"):
                 filename = filename.rsplit(".", 1)[0] + ".mp4"
 
-        await response.edit("📤 अपलोड हो रहा है...")
+        await response.edit("📤 अपलोड कर रहा हूँ...")
 
         await client.send_video(
             chat_id=message.chat.id,
