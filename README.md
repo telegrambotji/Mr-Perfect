@@ -18,7 +18,7 @@
 ## Features  
 
 - ✅ Supports Double Databases (Auto-Switch When Primary DB Is Running Low.)  
-- 🔍 Fast and efficient file searching with pagination  
+- 🔍 Fast And Efficient File Searching With Pagination  
 - 📂 Saves And Retrieves Files.  
 - 🚀 Optimized For Performance And Low Resource Usage  
 - 🛡️ 3 Verification Method 
