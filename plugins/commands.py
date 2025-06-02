@@ -16,7 +16,7 @@ from pyrogram.enums import ParseMode, ChatType
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, ChatAdminRequired
 from pyrogram.types import *
-from database.ia_filterdb import Media, Media2, get_file_details, unpack_new_file_id, get_bad_files
+from database.ia_filterdb import *
 from database.users_chats_db import db
 from info import *
 from utils import *
@@ -1440,3 +1440,27 @@ async def admin_commands(client, message):
     user_id = message.from_user.id
     await message.reply_text(script.ADMIN_CMD, disable_web_page_preview=True)
     
+
+@Client.on_message(filters.private & filters.command("movies"))
+async def siletxbotz_list_movies(client, message):
+    movies = await siletxbotz_get_movies()
+    if not movies:
+        error_msg = to_small_caps("❌ No recent movies found")
+        return await message.reply(error_msg, parse_mode=ParseMode.HTML)
+    
+    msg = to_small_caps("🎬 Latest Movies:\n\n")
+    msg += "\n".join(to_small_caps(f"✅ <code>{m}</code>") for m in movies)
+    await message.reply(msg[:4096], parse_mode=ParseMode.HTML)
+
+@Client.on_message(filters.private & filters.command("series"))
+async def siletxbotz_list_series(client, message):
+    series_data = await siletxbotz_get_series()
+    if not series_data:
+        error_msg = to_small_caps("❌ No recent series episodes found")
+        return await message.reply(error_msg, parse_mode=enums.ParseMode.HTML)
+    
+    msg = to_small_caps("📺 Latest Series:\n\n")
+    for title, seasons in series_data.items():
+        season_list = ", ".join(str(s) for e in seasons)
+        msg += to_small_caps(f"✅ <b>{title}</b> - Season {season_list}\n")
+    await message.reply(msg[:4096], parse_mode=enums.ParseMode.HTML)
