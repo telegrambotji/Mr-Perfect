@@ -214,3 +214,49 @@ def unpack_new_file_id(new_file_id):
     )
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
+
+
+async def siletxbotz_fetch_media(limit: int) -> List[dict]:
+    cursor = Media.find().sort("$natural", -1).limit(limit)
+    files = await cursor.to_list(length=limit)
+    if MULTIPLE_DB:
+        cursor2 = Media2.find().sort("$natural", -1).limit(limit)
+        files2 = await cursor2.to_list(length=limit)
+        seen_ids = {file.get("_id") for file in files}
+        files.extend(file for file in files2 if file.get("_id") not in seen_ids)
+    files.sort(key=lambda x: x.get("_id", ""), reverse=True)
+    return files[:limit]
+
+def siletxbotz_is_movie_filename(filename: str) -> bool:
+    pattern = r"(s\d{1,2}|season\s*\d+).*?(e\d{1,2}|episode\s*\d+)"
+    return not bool(re.search(pattern, filename, re.I))
+
+def siletxbotz_extract_series_info(filename: str) -> tuple[str, int] | None:
+    match = re.search(r"(.*?)(?:S\d{1,2}|Season\s*\d+).*?(?:E|Ep|Episode)?(\d{1,2})", filename, re.I)
+    if match:
+        return match.group(1).strip().title(), int(match.group(2))
+    return None
+
+async def siletxbotz_get_movies(limit: int = 20) -> List[str]:
+    files = await siletxbotz_fetch_media(limit * 2)
+    movies = [
+        file.get("file_name", "")
+        for file in files
+        if siletxbotz_is_movie_filename(file.get("file_name", ""))
+    ]
+    return movies[:limit]
+
+async def siletxbotz_get_series(limit: int = 30) -> Dict[str, List[int]]:
+    files = await siletxbotz_fetch_media(limit * 2)
+    grouped = defaultdict(list)
+    for file in files:
+        filename = file.get("file_name", "")
+        series_info = siletxbotz_extract_series_info(filename)
+        if series_info:
+            title, episode = series_info
+            grouped[title].append(episode)
+    return {
+        title: sorted(set(episodes))[:10]
+        for title, episodes in grouped.items()
+        if episodes
+    }
