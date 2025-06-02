@@ -232,9 +232,11 @@ def siletxbotz_is_movie_filename(filename: str) -> bool:
     return not bool(re.search(pattern, filename, re.I))
 
 def siletxbotz_extract_series_info(filename: str) -> tuple[str, int] | None:
-    match = re.search(r"(.*?)(?:S\d{1,2}|Season\s*\d+).*?(?:E|Ep|Episode)?(\d{1,2})", filename, re.I)
+    match = re.search(r"(.*?)(?:S(\d{1,2})|Season\s*(\d+))", filename, re.I)
     if match:
-        return match.group(1).strip().title(), int(match.group(2))
+        title = match.group(1).strip().title()
+        season = int(match.group(2) or match.group(3))
+        return title, season
     return None
 
 async def siletxbotz_get_movies(limit: int = 20) -> List[str]:
@@ -246,17 +248,18 @@ async def siletxbotz_get_movies(limit: int = 20) -> List[str]:
     ]
     return movies[:limit]
 
-async def siletxbotz_get_series(limit: int = 30) -> Dict[str, List[int]]:
+async def siletxbotz_get_series(limit: int = 20) -> Dict[str, List[int]]:
     files = await siletxbotz_fetch_media(limit * 2)
     grouped = defaultdict(list)
     for file in files:
         filename = file.get("file_name", "")
-        series_info = siletxbotz_extract_series_info(filename)
-        if series_info:
-            title, episode = series_info
-            grouped[title].append(episode)
+        if filename:
+            series_info = siletxbotz_extract_series_info(filename)
+            if series_info:
+                title, season = series_info
+                grouped[title].append(season)
     return {
-        title: sorted(set(episodes))[:10]
-        for title, episodes in grouped.items()
-        if episodes
+        title: sorted(set(seasons))[:10]
+        for title, seasons in grouped.items()
+        if seasons
     }
