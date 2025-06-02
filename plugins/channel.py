@@ -22,6 +22,7 @@ SILENTX_UPDATE_CAPTION = """𝖭𝖤𝖶 𝖥𝖨𝖫𝖤 𝖠𝖣𝖣𝖤𝖣 �
 
 {} #{}
 📺 𝖥𝗈𝗋𝗆𝖺𝗍 - {}
+🔰 𝖰𝗎𝖺𝗅𝗂𝗍𝗒 - {}
 🔈 𝖠𝗎𝖽𝗂𝗈 - {}
 🖇️ <a href="{}">𝖨𝖬𝖣𝖡 𝖨𝗇𝖿𝗈</a>
 """
@@ -64,6 +65,7 @@ async def send_movie_update(bot, file_name, caption):
             season = season_match.group(1)
             file_name = file_name[:file_name.find(season) + 1]
         quality = await get_qualities(caption) or "HDRip"
+        pixel = await get_pixels(caption) or "720p"
         language = ", ".join([lang for lang in CAPTION_LANGUAGES if lang.lower() in caption.lower()]) or "Not Idea"
         if file_name in notified_movies:
             return 
@@ -77,7 +79,7 @@ async def send_movie_update(bot, file_name, caption):
         unique_id = generate_unique_id(search_movie)
         reaction_counts[unique_id] = {"❤️": 0, "👍": 0, "👎": 0, "🔥": 0}
         user_reactions[unique_id] = {}        
-        full_caption = SILENTX_UPDATE_CAPTION.format(file_name, kind, quality, language, imdb_link)
+        full_caption = SILENTX_UPDATE_CAPTION.format(file_name, kind, quality, pixel, language, imdb_link)
         buttons = [[
             InlineKeyboardButton(f"❤️ {reaction_counts[unique_id]['❤️']}", callback_data=f"r_{unique_id}_{search_movie}_heart"),                
             InlineKeyboardButton(f"👍 {reaction_counts[unique_id]['👍']}", callback_data=f"r_{unique_id}_{search_movie}_like"),
@@ -86,7 +88,6 @@ async def send_movie_update(bot, file_name, caption):
         ],[
             InlineKeyboardButton('Get File', url=f'https://telegram.me/{temp.U_NAME}?start=getfile-{search_movie}')
         ]]
-        image_url = poster or "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
         if poster:
             photo_file = io.BytesIO(poster)
             photo_file.name = await generate_random_filename()
@@ -190,9 +191,13 @@ def generate_unique_id(movie_name):
 async def get_qualities(text):
     qualities = ["ORG", "org", "hdcam", "HDCAM", "HQ", "hq", "HDRip", "hdrip", 
                  "camrip", "WEB-DL", "CAMRip", "hdtc", "predvd", "DVDscr", "dvdscr", 
-                 "dvdrip", "HDTC", "dvdscreen", "HDTS", "hdts", "480p", "480p HEVC", 
-                 "720p", "720p HEVC", "1080p", "1080p HEVC", "2160p" "2K", "4K"]
+                 "dvdrip", "HDTC", "dvdscreen", "HDTS", "hdts"]
     return ", ".join([q for q in qualities if q.lower() in text.lower()])
+
+
+async def get_pixels(caption):
+    pixels = ["480p", "480p HEVC", "720p", "720p HEVC", "1080p", "1080p HEVC", "2160p" "2K", "4K"]
+    return ", ".join([p for p in pixels if p.lower() in caption.lower()])
 
 
 async def movie_name_format(file_name):
