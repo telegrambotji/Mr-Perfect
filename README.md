@@ -104,7 +104,7 @@ python3 bot.py
 
 # 📌 Credits  
 
-- **Base Repository:** [Dreamcinezone](https://github.com/MrRaazz/Dreamcinezone.git)
+- **Base Repository:** [ᴅʀᴇᴀᴍxʙᴏᴛᴢ](https://github.com/DreamXBotz/Auto_Filter_Bot.git)
 - **Thank You To All [Contributors](https://github.com/NBBotz/Auto_Filter_Bot/graphs/contributors) For Your Valuable Contributions To This Repository!**
 
 
