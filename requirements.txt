@@ -22,6 +22,8 @@ wheel
 ujson
 pyrogram
 tgcrypto
+aiohttp
+apscheduler
 yt-dlp
 wget
 aiofiles
