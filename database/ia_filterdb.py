@@ -10,6 +10,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
 from info import *
 from utils import get_settings, save_group_settings
+from collections import defaultdict
 
 
 logger = logging.getLogger(__name__)
@@ -216,51 +217,75 @@ def unpack_new_file_id(new_file_id):
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
 
-
 async def siletxbotz_fetch_media(limit: int) -> List[dict]:
-    cursor = Media.find().sort("$natural", -1).limit(limit)
-    files = await cursor.to_list(length=limit)
-    if MULTIPLE_DB:
-        cursor2 = Media2.find().sort("$natural", -1).limit(limit)
-        files2 = await cursor2.to_list(length=limit)
-        seen_ids = {file.get("_id") for file in files}
-        files.extend(file for file in files2 if file.get("_id") not in seen_ids)
-    files.sort(key=lambda x: x.get("_id", ""), reverse=True)
-    return files[:limit]
+    try:
+        if MULTIPLE_DB:
+            db_size = await check_db_size(Media)
+            if db_size > MONGODB_SIZE_LIMIT:
+                cursor = Media2.find().sort("$natural", -1).limit(limit)
+                files = await cursor.to_list(length=limit)
+                return files
+        cursor = Media.find().sort("$natural", -1).limit(limit)
+        files = await cursor.to_list(length=limit)
+        return files
+    except Exception as e:
+        logger.error(f"Error in siletxbotz_fetch_media: {e}")
+        return []
 
-def siletxbotz_is_movie_filename(filename: str) -> bool:
-    pattern = r"(s\d{1,2}|season\s*\d+).*?(e\d{1,2}|episode\s*\d+)"
-    return not bool(re.search(pattern, filename, re.I))
-
-def siletxbotz_extract_series_info(filename: str) -> tuple[str, int] | None:
-    match = re.search(r"(.*?)(?:S(\d{1,2})|Season\s*(\d+))", filename, re.I)
-    if match:
-        title = match.group(1).strip().title()
-        season = int(match.group(2) or match.group(3))
-        return title, season
-    return None
-
+async def silentxbotz_clean_title(filename: str, is_series: bool = False) -> str:
+    try:
+        year_match = re.search(r"^(.*?(\d{4}|\(\d{4}\)))", filename, re.IGNORECASE)
+        if year_match:
+            title = year_match.group(1).replace('(', '').replace(')', '') 
+            return re.sub(r"[._\-\[\]@()]+", " ", title).strip().title()
+        if is_series:
+            season_match = re.search(r"(.*?)(?:S(\d{1,2})|Season\s*(\d+)|Season(\d+))(?:\s*Combined)?", filename, re.IGNORECASE)
+            if season_match:
+                title = season_match.group(1).strip()
+                season = season_match.group(2) or season_match.group(3) or season_match.group(4)
+                title = re.sub(r"[._\-\[\]@()]+", " ", title).strip().title()
+                return f"{title} S{int(season):02}"
+        return re.sub(r"[._\-\[\]@()]+", " ", filename).strip().title()
+    except Exception as e:
+        logger.error(f"Error in truncate_title: {e}")
+        return filename
+        
 async def siletxbotz_get_movies(limit: int = 20) -> List[str]:
-    files = await siletxbotz_fetch_media(limit * 2)
-    movies = [
-        file.get("file_name", "")
-        for file in files
-        if siletxbotz_is_movie_filename(file.get("file_name", ""))
-    ]
-    return movies[:limit]
+    try:
+        cursor = await siletxbotz_fetch_media(limit * 2)
+        results = set()
+        pattern = r"(?:s\d{1,2}|season\s*\d+|season\d+)(?:\s*combined)?(?:e\d{1,2}|episode\s*\d+)?\b"
+        for file in cursor:
+            file_name = getattr(file, "file_name", "")
+            caption = getattr(file, "caption", "")
+            if not (re.search(pattern, file_name, re.IGNORECASE) or re.search(pattern, caption, re.IGNORECASE)):
+                title = await silentxbotz_clean_title(file_name)
+                results.add(title)
+            if len(results) >= limit:
+                break
+        return sorted(list(results))[:limit]
+    except Exception as e:
+        logger.error(f"Error in siletxbotz_get_movies: {e}")
+        return []
 
-async def siletxbotz_get_series(limit: int = 20) -> Dict[str, List[int]]:
-    files = await siletxbotz_fetch_media(limit * 2)
-    grouped = defaultdict(list)
-    for file in files:
-        filename = file.get("file_name", "")
-        if filename:
-            series_info = siletxbotz_extract_series_info(filename)
-            if series_info:
-                title, season = series_info
+async def siletxbotz_get_series(limit: int = 30) -> Dict[str, List[int]]:
+    try:
+        cursor = await siletxbotz_fetch_media(limit * 5)
+        grouped = defaultdict(list)
+        pattern = r"(.*?)(?:S(\d{1,2})|Season\s*(\d+)|Season(\d+))(?:\s*Combined)?(?:E(\d{1,2})|Episode\s*(\d+))?\b"
+        for file in cursor:
+            file_name = getattr(file, "file_name", "")
+            caption = getattr(file, "caption", "")
+            match = None
+            if file_name:
+                match = re.search(pattern, file_name, re.IGNORECASE)
+            if not match and caption:
+                match = re.search(pattern, caption, re.IGNORECASE)
+            if match:
+                title = await silentxbotz_clean_title(match.group(1), is_series=True)
+                season = int(match.group(2) or match.group(3) or match.group(4))
                 grouped[title].append(season)
-    return {
-        title: sorted(set(seasons))[:10]
-        for title, seasons in grouped.items()
-        if seasons
-    }
+        return {title: sorted(set(seasons))[:10] for title, seasons in grouped.items() if seasons}
+    except Exception as e:
+        logger.error(f"Error in siletxbotz_get_series: {e}")
+        return []
