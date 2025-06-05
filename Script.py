@@ -311,7 +311,7 @@ Nᴀᴍᴇ : {}
 
 Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
     
-    CAPTION = """<b><a href="https://t.me/SilentXBotz">{file_name}</a></b>\n\n<b>⚜️ Powered By : <a https://t.me/SilentXBotz>[SilentXBotz]</a></b>"""
+    CAPTION = """<b><a href="https://t.me/SilentXBotz">{file_name}</a></b>\n<b>Uploaded By: <a herf=`https://t.me/SilentXBotz`>[SilentXBotz]</a></b>"""
 
     IMDB_TEMPLATE_TXT = """
 <b>🏷 Title</b>: <a href={url}>{title}</a>
