@@ -90,7 +90,7 @@ async def pm_text(bot, message):
         await silentdb.update_top_messages(user_id, content)
         pm_search = await db.pm_search_status(bot_id)
         if pm_search:
-            gfilter = await global_filters(client, message)
+            gfilter = await global_filters(bot, message)
             if gfilter == False:
                 await auto_filter(bot, message)
         else:
