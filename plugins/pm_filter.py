@@ -57,13 +57,15 @@ async def give_filter(client, message):
     if message.chat.id != SUPPORT_CHAT_ID:
         manual = await manual_filters(client, message)
         if manual == False:
-            settings = await get_settings(message.chat.id)
-            if settings['auto_ffilter']:
-                if re.search(r'https?://\S+|www\.\S+|t\.me/\S+', message.text):
-                    if await is_check_admin(client, message.chat.id, message.from_user.id):
-                        return
-                    return await message.delete()
-                await auto_filter(client, message)
+            gfilter = await global_filters(client, message)
+            if gfilter == False:
+                settings = await get_settings(message.chat.id)
+                if settings['auto_ffilter']:
+                    if re.search(r'https?://\S+|www\.\S+|t\.me/\S+', message.text):
+                        if await is_check_admin(client, message.chat.id, message.from_user.id):
+                            return
+                        return await message.delete()   
+                    await auto_filter(client, message)
     else:
         search = message.text
         temp_files, temp_offset, total_results = await get_search_results(chat_id=message.chat.id, query=search.lower(), offset=0, filter=True)
@@ -88,7 +90,9 @@ async def pm_text(bot, message):
         await silentdb.update_top_messages(user_id, content)
         pm_search = await db.pm_search_status(bot_id)
         if pm_search:
-            await auto_filter(bot, message)
+            gfilter = await global_filters(client, message)
+            if gfilter == False:
+                await auto_filter(bot, message)
         else:
             await message.reply_text(
              text=f"<b><i>ɪ ᴀᴍ ɴᴏᴛ ᴡᴏʀᴋɪɴɢ ʜᴇʀᴇ 🚫 ᴊᴏɪɴ ᴍʏ ɢʀᴏᴜᴘ ꜰʀᴏᴍ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴀɴᴅ ꜱᴇᴀʀᴄʜ ᴛʜᴇʀᴇ !</i></b>",   
