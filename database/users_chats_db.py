@@ -1,7 +1,7 @@
 import motor.motor_asyncio
-from info import *
-import datetime
-import pytz  
+from info import *  
+from datetime import timedelta
+import time, datetime, pytz
 from pymongo.errors import DuplicateKeyError
 from pymongo import MongoClient
 
@@ -301,13 +301,38 @@ class Database:
         except Exception as e:
             print(f"Error updating document: {e}")
             return False
-
+            
+    # Premium expired reminder ( This Code Modified By @BOT_OWNER26)
     async def get_expired(self, current_time):
         expired_users = []
-        if data := self.users.find({"expiry_time": {"$lt": current_time}}):
-            async for user in data:
-                expired_users.append(user)
+        cursor = self.users.find({"expiry_time": {"$lt": current_time}})
+        async for user in cursor:
+            expired_users.append(user)
         return expired_users
+
+    # Premium expired reminder ( This Code Modified By @BOT_OWNER26)
+    async def get_expiring_soon(self, label, delta):
+        reminder_key = f"reminder_{label}_sent"
+        now = datetime.datetime.utcnow()
+        target_time = now + delta
+        window = timedelta(seconds=30)
+
+        start_range = target_time - window
+        end_range = target_time + window
+
+        reminder_users = []
+        cursor = self.users.find({
+            "expiry_time": {"$gte": start_range, "$lte": end_range},
+            reminder_key: {"$ne": True}
+        })
+
+        async for user in cursor:
+            reminder_users.append(user)
+            await self.users.update_one(
+                {"id": user["id"]}, {"$set": {reminder_key: True}}
+            )
+
+        return reminder_users
 
     async def remove_premium_access(self, user_id):
         return await self.update_one(
