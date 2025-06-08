@@ -29,6 +29,7 @@
 - 📥 Top Trending & Refer Feature.
 - 👑 Premium Subscription Funtion.
 - 📌 Premium Expired Reminder.
+- 🔥 Telegram Star Payment Method 
 
 ## Variables
 * `BOT_TOKEN`: Create A Bot Using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
