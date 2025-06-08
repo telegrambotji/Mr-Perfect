@@ -1343,7 +1343,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "buy":
         try:
             btn = [[ 
-                InlineKeyboardButton('• ꜱᴇɴᴅ  ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ •', url=OWNER_LNK),
+                InlineKeyboardButton('ꜱᴛᴀʀ', callback_data='star'),
+                InlineKeyboardButton('ᴜᴘɪ', callback_data='upi')
             ],[
                 InlineKeyboardButton('🚫 ᴄʟᴏꜱᴇ 🚫', callback_data='close_data')
             ]]
@@ -1354,6 +1355,45 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 reply_markup=reply_markup,
                 parse_mode=enums.ParseMode.HTML
             ) 
+        except Exception as e:
+            print(e)
+
+    elif query.data == "upi":
+        try:
+            btn = [[ 
+                InlineKeyboardButton('• ꜱᴇɴᴅ  ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ •', url=OWNER_LNK),
+            ],[
+                InlineKeyboardButton('🚫 ᴄʟᴏꜱᴇ 🚫', callback_data='close_data')
+            ]]
+            reply_markup = InlineKeyboardMarkup(btn)
+            await query.message.reply_photo(
+                photo=(SUBSCRIPTION),
+                caption=script.PREMIUM_UPI_TEXT.format(query.from_user.mention),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            ) 
+        except Exception as e:
+            print(e)
+
+    elif query.data == "star":
+        try:
+            btn = [
+                InlineKeyboardButton(f"{stars}⭐", callback_data=f"buy_{stars}")
+                for stars, days in STAR_PREMIUM_PLANS.items()
+            ]
+            buttons = [btn[i:i + 2] for i in range(0, len(btn), 2)]
+            buttons.append([InlineKeyboardButton("⋞ ʙᴀᴄᴋ", callback_data="buy")])
+            reply_markup = InlineKeyboardMarkup(buttons)
+            await client.edit_message_media(
+                query.message.chat.id, 
+                query.message.id, 
+                InputMediaPhoto(random.choice(PICS))
+	        ) 
+            await query.message.edit_text(
+                text=script.PREMIUM_STAR_TEXT,
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+	    )
         except Exception as e:
             print(e)
 
