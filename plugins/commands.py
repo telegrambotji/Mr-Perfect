@@ -398,7 +398,7 @@ async def start(client, message):
                 chat_id=message.from_user.id,
                 file_id=file_id,
                 caption=f_caption,
-                protect_content=True if pre == 'filep' else False,
+                protect_content=settings.get('file_secure', PROTECT_CONTENT),
                 reply_markup=InlineKeyboardMarkup(btn)
             )
             filesarr.append(msg)
@@ -486,7 +486,7 @@ async def start(client, message):
         chat_id=message.from_user.id,
         file_id=file_id,
         caption=f_caption,
-        protect_content=True if pre == 'filep' else False,
+        protect_content=settings.get('file_secure', PROTECT_CONTENT),
         reply_markup=InlineKeyboardMarkup(btn)
     )
     k = await msg.reply(
