@@ -410,7 +410,8 @@ async def start(client, message):
         return
 
     user = message.from_user.id
-    files_ = await get_file_details(file_id)        
+    files_ = await get_file_details(file_id)  
+    settings = await get_settings(int(grp_id))
     if not files_:
         pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
         try:
@@ -427,7 +428,7 @@ async def start(client, message):
             msg = await client.send_cached_media(
                 chat_id=message.from_user.id,
                 file_id=file_id,
-                protect_content=True if pre == 'filep' else False,
+                protect_content=settings.get('file_secure', PROTECT_CONTENT),
                 reply_markup=InlineKeyboardMarkup(btn))
 
             filetype = msg.media
