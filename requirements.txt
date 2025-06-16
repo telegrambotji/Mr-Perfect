@@ -22,7 +22,7 @@ wheel
 ujson
 wget
 aiofiles
-dnspython==2.3.0
+dnspython==2.6.1
 python-decouple
 ffmpeg-python==0.2.0
 jinja2
