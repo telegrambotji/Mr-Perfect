@@ -42,7 +42,7 @@ async def stream_handler(request: web.Request):
         pass
     except Exception as e:
         logging.critical(e.with_traceback(None))
-        raise web.HTTPInternalServerError(text=str(e))
+        raise web.HTTPInternalServerError(text="An internal error has occurred.")
 
 @routes.get(r"/{path:\S+}", allow_head=True)
 async def stream_handler(request: web.Request):
@@ -64,7 +64,7 @@ async def stream_handler(request: web.Request):
         pass
     except Exception as e:
         logging.critical(e.with_traceback(None))
-        raise web.HTTPInternalServerError(text=str(e))
+        raise web.HTTPInternalServerError(text="An internal error has occurred.")
 
 class_cache = {}
 
