@@ -17,6 +17,7 @@ class Database:
         self.misc = self.db.misc
         self.verify_id = self.db.verify_id 
         self.codes = self.db.codes
+        self.connection = self.db.connections
 
     async def find_join_req(self, id):
         return bool(await self.req.find_one({'id': id})) 
@@ -150,7 +151,19 @@ class Database:
             return chat['settings']
         else:
             return default.copy()
-    
+
+    async def silentx_reset_settings(self):
+        try:
+            result = await self.grp.update_many(
+                {'settings': {'$exists': True}},
+                {'$unset': {'settings': ''}}
+            )
+            modified_count = result.modified_count
+            return modified_count
+        except Exception as e:
+            print(f"Error deleting settings for all groups: {str(e)}")
+            raise
+            
     async def disable_chat(self, chat, reason="No Reason"):
         chat_status=dict(
             is_disabled=True,
@@ -368,6 +381,21 @@ class Database:
             {'$set': {setting_key: value}}, 
             upsert=True
         )
+
+    async def connect_group(self, group_id, user_id):
+        user= await self.connection.find_one({'_id': user_id})
+        if user:
+            if group_id not in user["group_ids"]:
+                await self.connection.update_one({'_id': user_id}, {"$push": {"group_ids": group_id}})
+        else:
+            await self.connection.insert_one({'_id': user_id, 'group_ids': [group_id]})
+
+    async def get_connected_grps(self, user_id):
+        user = await self.connection.find_one({'_id': user_id})
+        if user:
+            return user["group_ids"]
+        else:
+            return []
 
     async def pm_search_status(self, bot_id):
         return await self.get_bot_setting(bot_id, 'PM_SEARCH', PM_SEARCH)

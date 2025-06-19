@@ -29,7 +29,17 @@
 - 📥 Top Trending & Refer Feature.
 - 👑 Premium Subscription Funtion.
 - 📌 Premium Expired Reminder.
-- 🔥 Telegram Star Payment Method 
+- 🔥 Telegram Star Payment Method
+
+# New Version Released - V4.0
+- Now Group Owners Change There All Settings From Callback Button ✅
+- Group Owners Can Manage Groups From Bot PM.
+- Added /reload Command 
+- UI Change
+- New Channel Update Theme
+- Added Support Of Streming Only For Premium Users
+- Now Owner Can Reset All Connect Groups Settings 
+
 
 ## Variables
 * `BOT_TOKEN`: Create A Bot Using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.

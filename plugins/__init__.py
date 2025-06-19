@@ -16,8 +16,6 @@ async def web_server():
     return web_app
 
 REMINDER_TIMES = [
-   # ("1d", timedelta(days=1)),
-   # ("5h30m", timedelta(hours=5, minutes=30)),
     ("10m", timedelta(minutes=10))
 ]
 
@@ -25,20 +23,12 @@ REMINDER_TIMES = [
 async def check_expired_premium(client):
     while True:
         now = datetime.utcnow()
-
-        # 1. Expired Users
         expired_users = await db.get_expired(now)
         for user in expired_users:
             user_id = user["id"]
-
-            # Remove premium access
             await db.remove_premium_access(user_id)
-
-            # Unset all reminder flags
             unset_flags = {f"reminder_{label}_sent": "" for label, _ in REMINDER_TIMES}
             await db.users.update_one({"id": user_id}, {"$unset": unset_flags})
-
-            # Notify user and log
             try:
                 tg_user = await client.get_users(user_id)
                 await client.send_message(
@@ -51,10 +41,7 @@ async def check_expired_premium(client):
                 )
             except Exception as e:
                 print(f"[EXPIRED ERROR] {e}")
-
             await sleep(0.5)
-
-        # 2. Send Reminders
         for label, delta in REMINDER_TIMES:
             reminder_users = await db.get_expiring_soon(label, delta)
             for user in reminder_users:
@@ -71,7 +58,5 @@ async def check_expired_premium(client):
                     )
                 except Exception as e:
                     print(f"[REMINDER ERROR] {e}")
-
                 await sleep(0.5)
-
         await sleep(1)
