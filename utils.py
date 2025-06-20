@@ -40,6 +40,7 @@ START_CHAR = ('\'', '"', SMART_OPEN)
 class temp(object):   
     BANNED_USERS = []
     BANNED_CHATS = []
+    SETTINGS = {}
     ME = None
     CURRENT=int(os.environ.get("SKIP", 2))
     CANCEL = False
@@ -200,12 +201,16 @@ async def get_shortlink(link, grp_id, is_second_shortener=False, is_third_shorte
     return link
 
 async def get_settings(group_id):
-    settings = await db.get_settings(int(group_id))
+    settings = temp.SETTINGS.get(group_id)
+    if not settings:
+        settings = await db.get_settings(group_id)
+        temp.SETTINGS.update({group_id: settings})
     return settings
     
 async def save_group_settings(group_id, key, value):
     current = await get_settings(group_id)
-    current[key] = value
+    current.update({key: value})
+    temp.SETTINGS.update({group_id: current})
     await db.update_settings(group_id, current)
     
 def get_size(size):
