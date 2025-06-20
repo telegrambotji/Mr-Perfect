@@ -31,7 +31,7 @@
 - 📌 Premium Expired Reminder.
 - 🔥 Telegram Star Payment Method
 
-# New Version Released - V4.0
+# New Version Released - V4.2
 - Now Group Owners Change There All Settings From Callback Button ✅
 - Group Owners Can Manage Groups From Bot PM.
 - Added /reload Command 
