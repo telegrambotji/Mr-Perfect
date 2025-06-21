@@ -58,23 +58,23 @@ UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/+jbeRiFEV5N
 AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002459554188'))
 AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1002459554188'))
 
-IS_VERIFY = is_enabled('IS_VERIFY', False)
-LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '100'))
-LOG_API_CHANNEL = int(environ.get('LOG_API_CHANNEL', '-100'))
+IS_VERIFY = is_enabled('IS_VERIFY', True)
+LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '-1002748763541'))
+LOG_API_CHANNEL = int(environ.get('LOG_API_CHANNEL', '-1002748763541'))
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://telegra.ph/file/9ecc5d6e4df5b83424896.jpg")
 
 TUTORIAL = environ.get("TUTORIAL", "https://t.me/+sYYpPgyyOq03Mzhl")
-TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/")
-TUTORIAL_3 = environ.get("TUTORIAL_3", "https://t.me/")
+TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/+sYYpPgyyOq03Mzhl")
+TUTORIAL_3 = environ.get("TUTORIAL_3", "https://t.me/+sYYpPgyyOq03Mzhl")
 
 SHORTENER_API = environ.get("SHORTENER_API", "bc9e90eb5dfdd6a3a7a6e61cef1e2e3de23b922f")
 SHORTENER_WEBSITE = environ.get("SHORTENER_WEBSITE", "shortxlinks.in")
 
-SHORTENER_API2 = environ.get("SHORTENER_API2", "")
-SHORTENER_WEBSITE2 = environ.get("SHORTENER_WEBSITE2", "")
+SHORTENER_API2 = environ.get("SHORTENER_API2", "cf65fef0003ff03c15d5c907f0647a479fc29060")
+SHORTENER_WEBSITE2 = environ.get("SHORTENER_WEBSITE2", "softurl.in")
 
-SHORTENER_API3 = environ.get("SHORTENER_API3", "")
-SHORTENER_WEBSITE3 = environ.get("SHORTENER_WEBSITE3", "")
+SHORTENER_API3 = environ.get("SHORTENER_API3", "bc9e90eb5dfdd6a3a7a6e61cef1e2e3de23b922f")
+SHORTENER_WEBSITE3 = environ.get("SHORTENER_WEBSITE3", "shortxlinks.in")
 
 TWO_VERIFY_GAP = int(environ.get('TWO_VERIFY_GAP', "1200"))
 THREE_VERIFY_GAP = int(environ.get('THREE_VERIFY_GAP', "54000"))
