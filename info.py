@@ -33,7 +33,7 @@ ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002625346421').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002748763541'))  
 BIN_CHANNEL = int(environ.get('BIN_CHANNEL', '  -1002839994285'))  
-MOVIE_UPDATE_CHANNEL = int(environ.get('MOVIE_UPDATE_CHANNEL', '-1002459554188'))  
+MOVIE_UPDATE_CHANNEL = int(environ.get('MOVIE_UPDATE_CHANNEL', '-1002715836361'))  
 PREMIUM_LOGS = int(environ.get('PREMIUM_LOGS', '-1002748763541')) 
 auth_grp = environ.get('AUTH_GROUP')
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
@@ -42,7 +42,7 @@ REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_
 support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1002749179475') 
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
 
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://yashg:yashg@cluster0.dtyu5ek.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://yashkk:yashkk@cluster0.krmrdkg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'SilentXBotz_files')
 
@@ -53,7 +53,7 @@ DATABASE_URI2 = environ.get('DATABASE_URI2', "")
 GRP_LNK = environ.get('GRP_LNK', 'https://t.me/+sAIZx9peDdMyZjU9')
 CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/+XdG0JyLDSVY4M2E9')
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/mrperfectjikabot')
-UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/+jbeRiFEV5NY4ZTk1')
+UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/movies_update_zone')
 
 AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002459554188'))
 AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1002459554188'))
