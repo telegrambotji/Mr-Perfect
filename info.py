@@ -55,8 +55,8 @@ CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/+XdG0JyLDSVY4M2E9')
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/mrperfectjikabot')
 UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/movies_update_zone')
 
-AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002459554188'))
-AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1002459554188'))
+AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002757830271'))
+AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1002757830271'))
 
 IS_VERIFY = is_enabled('IS_VERIFY', True)
 LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '-1002875350060'))
